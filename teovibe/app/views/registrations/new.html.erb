@@ -1,8 +1,42 @@
-<div class="min-h-[calc(100vh-86px)] flex items-center justify-center px-5">
-  <div class="w-full max-w-md">
-    <h1 class="text-4xl font-black text-center mb-2">회원가입</h1>
-    <p class="text-tv-gray text-center mb-8">바이브코딩 여정을 함께하세요</p>
+<div class="min-h-[calc(100vh-86px)] flex flex-col items-center justify-center px-5">
+  <h1 class="text-4xl font-black text-tv-orange mb-8">TeoVibe</h1>
 
+  <div class="w-full max-w-md bg-white rounded-card-lg shadow-sm p-8">
+    <%# 탭 %>
+    <div class="flex mb-6 border border-tv-light-gray/30 rounded-pill overflow-hidden">
+      <%= link_to "로그인", new_session_path,
+        class: "flex-1 py-3 text-center text-sm font-bold text-tv-gray hover:text-tv-black transition-colors" %>
+      <div class="flex-1 py-3 text-center text-sm font-black bg-white shadow-sm rounded-pill border border-tv-light-gray/30 -m-px">
+        회원가입
+      </div>
+    </div>
+
+    <%# 소셜 가입 안내 %>
+    <p class="text-center text-sm text-tv-gray mb-4">소셜 계정으로 간편하게 가입하세요</p>
+
+    <%# 포인트/레벨 배지 %>
+    <div class="bg-tv-cream rounded-pill py-2.5 px-6 mb-6 flex items-center justify-center gap-3 text-sm">
+      <span class="font-bold text-tv-gold">+20P</span>
+      <span class="text-tv-light-gray">|</span>
+      <span><span class="bg-tv-black text-white text-xs font-bold rounded px-1.5 py-0.5">Lv.1</span> 시작</span>
+    </div>
+
+    <%# 소셜 로그인 버튼 %>
+    <%= render "shared/auth_social" %>
+
+    <%# 이용약관 %>
+    <p class="mt-6 text-center text-xs text-tv-light-gray leading-relaxed">
+      계속 진행 시 <%= link_to "이용약관", "#", class: "text-tv-orange font-bold underline" %> 및
+      <%= link_to "개인정보처리방침", "#", class: "text-tv-orange font-bold underline" %>에 동의하는 것으로 간주됩니다.
+    </p>
+
+    <%# 구분선 %>
+    <div class="relative mt-6 mb-6">
+      <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-tv-light-gray/30"></div></div>
+      <div class="relative flex justify-center text-xs"><span class="bg-white px-4 text-tv-light-gray">또는 이메일로 가입</span></div>
+    </div>
+
+    <%# 이메일 가입 폼 %>
     <%= form_with model: @user, url: registration_path, class: "space-y-4" do |f| %>
       <% if @user.errors.any? %>
         <div class="bg-red-50 text-red-800 border border-red-200 rounded-2xl px-4 py-3 text-sm">
@@ -17,35 +51,34 @@
       <div>
         <label for="user_nickname" class="block text-sm font-bold mb-1">닉네임</label>
         <%= f.text_field :nickname, required: true, autofocus: true, placeholder: "커뮤니티에서 사용할 이름",
-          class: "w-full px-4 py-3 rounded-2xl border border-tv-light-gray/50 focus:border-tv-gold focus:outline-none text-base" %>
+          class: "w-full px-4 py-3 rounded-2xl border border-tv-light-gray/50 focus:border-tv-gold focus:outline-none text-sm" %>
       </div>
 
       <div>
         <label for="user_email_address" class="block text-sm font-bold mb-1">이메일</label>
         <%= f.email_field :email_address, required: true, autocomplete: "email",
-          class: "w-full px-4 py-3 rounded-2xl border border-tv-light-gray/50 focus:border-tv-gold focus:outline-none text-base" %>
+          class: "w-full px-4 py-3 rounded-2xl border border-tv-light-gray/50 focus:border-tv-gold focus:outline-none text-sm" %>
       </div>
 
       <div>
         <label for="user_password" class="block text-sm font-bold mb-1">비밀번호</label>
         <%= f.password_field :password, required: true, autocomplete: "new-password",
-          class: "w-full px-4 py-3 rounded-2xl border border-tv-light-gray/50 focus:border-tv-gold focus:outline-none text-base" %>
+          class: "w-full px-4 py-3 rounded-2xl border border-tv-light-gray/50 focus:border-tv-gold focus:outline-none text-sm" %>
       </div>
 
       <div>
         <label for="user_password_confirmation" class="block text-sm font-bold mb-1">비밀번호 확인</label>
         <%= f.password_field :password_confirmation, required: true, autocomplete: "new-password",
-          class: "w-full px-4 py-3 rounded-2xl border border-tv-light-gray/50 focus:border-tv-gold focus:outline-none text-base" %>
+          class: "w-full px-4 py-3 rounded-2xl border border-tv-light-gray/50 focus:border-tv-gold focus:outline-none text-sm" %>
       </div>
 
-      <button type="submit" class="w-full bg-tv-gold text-tv-black rounded-pill py-3.5 text-lg font-bold hover:opacity-90 transition-opacity">
+      <button type="submit" class="w-full bg-tv-gold text-tv-black rounded-pill py-3.5 text-base font-bold hover:opacity-90 transition-opacity">
         시작하기
       </button>
     <% end %>
-
-    <p class="mt-6 text-center text-sm text-tv-gray">
-      이미 계정이 있으신가요?
-      <%= link_to "로그인", new_session_path, class: "text-tv-orange font-bold hover:underline" %>
-    </p>
   </div>
+
+  <%= link_to new_session_path, class: "mt-6 text-sm text-tv-gray hover:text-tv-black transition-colors" do %>
+    &larr; 홈으로 돌아가기
+  <% end %>
 </div>
