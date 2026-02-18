@@ -1,0 +1,13 @@
+<%# CTA 섹션: 오렌지 배경 마무리 %>
+<section class="py-24 px-5 bg-tv-orange text-white" data-controller="scroll-animation">
+  <div class="max-w-[800px] mx-auto text-center">
+    <h2 class="text-subheading md:text-display font-black leading-tight mb-8" style="letter-spacing: -0.8px;">
+      <%= section.title %>
+    </h2>
+    <% if section.subtitle.present? %>
+      <p class="text-lg mb-10 opacity-90"><%= section.subtitle %></p>
+    <% end %>
+    <%= link_to "시작하기", new_registration_path,
+      class: "inline-block bg-white text-tv-orange rounded-pill px-10 py-4 text-lg font-bold hover:opacity-90 transition-opacity" %>
+  </div>
+</section>

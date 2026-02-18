@@ -1,0 +1,10 @@
+<%# 사용법: render "shared/card", highlighted: false do %>
+<%#   카드 내용 %>
+<%# end %>
+<%
+  highlighted ||= false
+  shadow = highlighted ? "shadow-xl" : "shadow-none"
+%>
+<div class="bg-white rounded-card p-6 <%= shadow %> <%= local_assigns[:class] %>">
+  <%= yield %>
+</div>

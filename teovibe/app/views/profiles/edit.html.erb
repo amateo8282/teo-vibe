@@ -1,0 +1,32 @@
+<div class="max-w-md mx-auto px-5 py-10">
+  <h1 class="text-3xl font-black mb-8">프로필 수정</h1>
+
+  <%= form_with model: @user, url: profile_path, method: :patch, class: "space-y-4" do |f| %>
+    <% if @user.errors.any? %>
+      <div class="bg-red-50 text-red-800 border border-red-200 rounded-2xl px-4 py-3 text-sm">
+        <ul class="list-disc list-inside space-y-1">
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <label for="user_nickname" class="block text-sm font-bold mb-1">닉네임</label>
+      <%= f.text_field :nickname, required: true,
+        class: "w-full px-4 py-3 rounded-2xl border border-tv-light-gray/50 focus:border-tv-gold focus:outline-none text-base" %>
+    </div>
+
+    <div>
+      <label for="user_bio" class="block text-sm font-bold mb-1">자기소개</label>
+      <%= f.text_area :bio, rows: 4, placeholder: "간단한 자기소개를 작성해주세요",
+        class: "w-full px-4 py-3 rounded-2xl border border-tv-light-gray/50 focus:border-tv-gold focus:outline-none text-base resize-none" %>
+    </div>
+
+    <div class="flex gap-3">
+      <%= link_to "취소", me_path, class: "flex-1 text-center border border-tv-black text-tv-black rounded-pill py-3 font-bold hover:bg-tv-black hover:text-white transition-colors" %>
+      <%= f.submit "저장", class: "flex-1 bg-tv-gold text-tv-black rounded-pill py-3 font-bold hover:opacity-90 transition-opacity cursor-pointer" %>
+    </div>
+  <% end %>
+</div>

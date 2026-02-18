@@ -1,0 +1,28 @@
+<div class="flex items-center justify-between mb-8">
+  <h1 class="text-2xl font-black">랜딩 섹션 관리</h1>
+  <%= link_to "새 섹션", new_admin_landing_section_path, class: "bg-tv-gold text-tv-black rounded-pill px-5 py-2.5 text-sm font-bold" %>
+</div>
+
+<div class="bg-white rounded-card divide-y">
+  <% @sections.each do |section| %>
+    <div class="p-4 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <span class="text-sm text-tv-gray w-8"><%= section.position %></span>
+        <div>
+          <p class="font-medium"><%= section.title %></p>
+          <p class="text-xs text-tv-gray"><%= section.section_type %> | <%= section.active? ? "활성" : "비활성" %></p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <%= button_to "위", move_up_admin_landing_section_path(section), method: :patch, class: "text-xs px-2 py-1 border rounded" %>
+        <%= button_to "아래", move_down_admin_landing_section_path(section), method: :patch, class: "text-xs px-2 py-1 border rounded" %>
+        <%= button_to section.active? ? "비활성" : "활성", toggle_active_admin_landing_section_path(section), method: :patch,
+          class: "text-xs px-2 py-1 border rounded #{section.active? ? 'bg-green-50 text-green-700' : 'bg-gray-50 text-gray-500'}" %>
+        <%= link_to "편집", edit_admin_landing_section_path(section), class: "text-xs text-tv-orange hover:underline" %>
+        <%= link_to "카드", admin_landing_section_path(section), class: "text-xs text-tv-gray hover:underline" %>
+        <%= button_to "삭제", admin_landing_section_path(section), method: :delete,
+          data: { turbo_confirm: "정말 삭제하시겠습니까?" }, class: "text-xs text-red-500 hover:underline" %>
+      </div>
+    </div>
+  <% end %>
+</div>

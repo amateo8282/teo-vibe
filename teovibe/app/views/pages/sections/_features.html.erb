@@ -1,0 +1,21 @@
+<%# 기능 소개 섹션: 3단 카드 (memoir "무엇을 하나요?" 패턴) %>
+<section class="py-24 px-5" data-controller="scroll-animation">
+  <div class="max-w-[1200px] mx-auto">
+    <%= render "shared/section_label", text: "WHAT'S TEOVIBE" %>
+    <h2 class="text-subheading md:text-display font-black leading-tight mb-16" style="letter-spacing: -0.8px;">
+      <%= section.title %>
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <% section.section_cards.ordered.each_with_index do |card, i| %>
+        <div class="bg-white rounded-card p-8" data-controller="scroll-animation">
+          <% if card.icon.present? %>
+            <div class="text-4xl mb-4"><%= card.icon %></div>
+          <% end %>
+          <h3 class="text-subheading font-extrabold mb-3"><%= card.title %></h3>
+          <p class="text-base text-tv-gray leading-relaxed"><%= card.description %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

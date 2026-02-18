@@ -1,0 +1,16 @@
+<%# 사용법: render "shared/button", text: "시작하기", variant: :cta, href: "#" %>
+<%# variant: :primary (기본), :cta (골드), :ghost (테두리), :danger (빨강) %>
+<%
+  variant ||= :primary
+  tag_name = local_assigns[:href] ? :a : :button
+  base = "inline-flex items-center justify-center rounded-pill px-5 py-3.5 text-lg font-bold transition-opacity hover:opacity-90"
+  variants = {
+    primary: "bg-tv-black text-white",
+    cta: "bg-tv-gold text-tv-black",
+    ghost: "border border-tv-black text-tv-black bg-transparent",
+    danger: "bg-red-600 text-white",
+    orange: "bg-tv-orange text-white"
+  }
+  classes = "#{base} #{variants[variant]} #{local_assigns[:class]}"
+%>
+<%= content_tag(tag_name, text, href: local_assigns[:href], class: classes, method: local_assigns[:method], data: local_assigns[:data]) %>

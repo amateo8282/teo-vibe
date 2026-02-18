@@ -1,0 +1,30 @@
+<div class="max-w-[800px] mx-auto px-5 py-10">
+  <div class="bg-white rounded-card-lg p-8 mb-8">
+    <div class="flex items-center gap-6 mb-6">
+      <div class="w-20 h-20 rounded-full bg-tv-gold flex items-center justify-center text-3xl font-black text-tv-black">
+        <%= @user.nickname.first.upcase %>
+      </div>
+      <div>
+        <h1 class="text-2xl font-black"><%= @user.nickname %></h1>
+        <p class="text-tv-gray"><%= @user.email_address %></p>
+        <div class="flex items-center gap-4 mt-2 text-sm text-tv-gray">
+          <span>Lv.<%= @user.level %></span>
+          <span><%= @user.points %>P</span>
+          <span>글 <%= @user.posts_count %></span>
+          <span>댓글 <%= @user.comments_count %></span>
+        </div>
+      </div>
+    </div>
+    <% if @user.bio.present? %>
+      <p class="text-base text-tv-gray"><%= @user.bio %></p>
+    <% end %>
+    <%= link_to "프로필 수정", edit_profile_path, class: "inline-block mt-4 border border-tv-black rounded-pill px-5 py-2 text-sm font-bold hover:bg-tv-black hover:text-white transition-colors" %>
+  </div>
+
+  <h2 class="text-xl font-black mb-4">내가 쓴 글</h2>
+  <div class="space-y-4">
+    <% @user.posts.order(created_at: :desc).limit(10).each do |post| %>
+      <%= render "posts/card", post: post %>
+    <% end %>
+  </div>
+</div>

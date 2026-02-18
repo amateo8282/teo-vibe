@@ -1,0 +1,18 @@
+<h1 class="text-2xl font-black mb-6"><%= @user.nickname %></h1>
+<div class="bg-white rounded-card p-6 max-w-lg">
+  <dl class="space-y-3 text-sm">
+    <div class="flex"><dt class="w-24 font-bold text-tv-gray">이메일</dt><dd><%= @user.email_address %></dd></div>
+    <div class="flex"><dt class="w-24 font-bold text-tv-gray">역할</dt><dd><%= @user.role %></dd></div>
+    <div class="flex"><dt class="w-24 font-bold text-tv-gray">레벨</dt><dd><%= @user.level %></dd></div>
+    <div class="flex"><dt class="w-24 font-bold text-tv-gray">포인트</dt><dd><%= @user.points %></dd></div>
+    <div class="flex"><dt class="w-24 font-bold text-tv-gray">글 수</dt><dd><%= @user.posts_count %></dd></div>
+    <div class="flex"><dt class="w-24 font-bold text-tv-gray">댓글 수</dt><dd><%= @user.comments_count %></dd></div>
+    <div class="flex"><dt class="w-24 font-bold text-tv-gray">가입일</dt><dd><%= @user.created_at.strftime("%Y-%m-%d %H:%M") %></dd></div>
+    <% if @user.bio.present? %>
+      <div class="flex"><dt class="w-24 font-bold text-tv-gray">소개</dt><dd><%= @user.bio %></dd></div>
+    <% end %>
+  </dl>
+  <div class="mt-6">
+    <%= link_to "편집", edit_admin_user_path(@user), class: "text-tv-orange text-sm hover:underline" %>
+  </div>
+</div>

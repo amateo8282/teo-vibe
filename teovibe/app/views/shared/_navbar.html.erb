@@ -1,0 +1,66 @@
+<nav class="fixed top-0 left-0 right-0 z-50 bg-tv-nav-bg backdrop-blur-md h-[86px]" data-controller="mobile-menu">
+  <div class="max-w-[1200px] mx-auto px-5 h-full flex items-center justify-between">
+    <%# 로고 %>
+    <%= link_to root_path, class: "text-2xl font-black tracking-tight text-tv-black" do %>
+      TeoVibe
+    <% end %>
+
+    <%# 데스크톱 네비게이션 %>
+    <div class="hidden md:flex items-center gap-8">
+      <%= link_to "블로그", blogs_path, class: "text-base font-medium text-tv-black hover:text-tv-orange transition-colors" %>
+      <%= link_to "튜토리얼", tutorials_path, class: "text-base font-medium text-tv-black hover:text-tv-orange transition-colors" %>
+      <%= link_to "커뮤니티", free_boards_path, class: "text-base font-medium text-tv-black hover:text-tv-orange transition-colors" %>
+      <%= link_to "Q&A", qnas_path, class: "text-base font-medium text-tv-black hover:text-tv-orange transition-colors" %>
+    </div>
+
+    <%# 우측 버튼 영역 %>
+    <div class="hidden md:flex items-center gap-3">
+      <% if Current.user %>
+        <%= link_to "글쓰기", new_post_path, class: "bg-tv-gold text-tv-black rounded-pill px-5 py-2.5 text-base font-bold hover:opacity-90 transition-opacity" %>
+        <div class="relative" data-controller="dropdown">
+          <button data-action="click->dropdown#toggle" class="flex items-center gap-2 text-base font-medium">
+            <%= Current.user.nickname %>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div data-dropdown-target="menu" class="hidden absolute right-0 top-full mt-2 w-48 bg-white rounded-card shadow-lg py-2 z-50">
+            <%= link_to "내 프로필", me_path, class: "block px-4 py-2 text-sm hover:bg-tv-cream" %>
+            <% if Current.user.admin? %>
+              <%= link_to "관리자", admin_root_path, class: "block px-4 py-2 text-sm hover:bg-tv-cream" %>
+            <% end %>
+            <%= button_to "로그아웃", session_path, method: :delete, class: "block w-full text-left px-4 py-2 text-sm hover:bg-tv-cream" %>
+          </div>
+        </div>
+      <% else %>
+        <%= link_to "로그인", new_session_path, class: "text-base font-medium text-tv-black hover:text-tv-orange transition-colors" %>
+        <%= link_to "시작하기", new_registration_path, class: "bg-tv-gold text-tv-black rounded-pill px-5 py-2.5 text-base font-bold hover:opacity-90 transition-opacity" %>
+      <% end %>
+    </div>
+
+    <%# 모바일 햄버거 %>
+    <button class="md:hidden" data-action="click->mobile-menu#toggle">
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path data-mobile-menu-target="openIcon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        <path data-mobile-menu-target="closeIcon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+
+  <%# 모바일 메뉴 %>
+  <div data-mobile-menu-target="menu" class="hidden md:hidden bg-white border-t">
+    <div class="px-5 py-4 space-y-3">
+      <%= link_to "블로그", blogs_path, class: "block text-lg font-medium" %>
+      <%= link_to "튜토리얼", tutorials_path, class: "block text-lg font-medium" %>
+      <%= link_to "커뮤니티", free_boards_path, class: "block text-lg font-medium" %>
+      <%= link_to "Q&A", qnas_path, class: "block text-lg font-medium" %>
+      <hr class="border-tv-cream">
+      <% if Current.user %>
+        <%= link_to "내 프로필", me_path, class: "block text-lg font-medium" %>
+        <%= link_to "글쓰기", new_post_path, class: "block text-center bg-tv-gold text-tv-black rounded-pill px-5 py-3 text-lg font-bold" %>
+        <%= button_to "로그아웃", session_path, method: :delete, class: "block w-full text-left text-lg font-medium text-tv-gray" %>
+      <% else %>
+        <%= link_to "로그인", new_session_path, class: "block text-lg font-medium" %>
+        <%= link_to "시작하기", new_registration_path, class: "block text-center bg-tv-gold text-tv-black rounded-pill px-5 py-3 text-lg font-bold" %>
+      <% end %>
+    </div>
+  </div>
+</nav>

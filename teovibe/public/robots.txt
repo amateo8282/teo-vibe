@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /profile/edit
+
+Sitemap: https://teovibe.com/sitemap.xml

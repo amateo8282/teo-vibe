@@ -1,0 +1,23 @@
+<%# 후기 섹션: 어두운 배경 + 후기 카드 3열 %>
+<section class="py-24 px-5 bg-tv-black text-white" data-controller="scroll-animation">
+  <div class="max-w-[1200px] mx-auto">
+    <%= render "shared/section_label", text: "TESTIMONIALS" %>
+    <h2 class="text-subheading md:text-display font-black leading-tight mb-16" style="letter-spacing: -0.8px;">
+      <%= section.title %>
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <% section.section_cards.ordered.each do |card| %>
+        <div class="bg-tv-dark rounded-card p-8" data-controller="scroll-animation">
+          <p class="text-base leading-relaxed mb-6 text-tv-light-gray"><%= card.description %></p>
+          <div>
+            <p class="font-bold"><%= card.title %></p>
+            <% if card.link_text.present? %>
+              <p class="text-sm text-tv-light-gray"><%= card.link_text %></p>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

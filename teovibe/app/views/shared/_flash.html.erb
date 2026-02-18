@@ -1,0 +1,8 @@
+<% flash.each do |type, message| %>
+  <div data-controller="dismissable" class="fixed top-24 right-5 z-50 max-w-sm">
+    <div class="<%= type == 'alert' ? 'bg-red-50 text-red-800 border-red-200' : 'bg-green-50 text-green-800 border-green-200' %> border rounded-card px-4 py-3 flex items-center gap-3 shadow-lg">
+      <p class="text-sm flex-1"><%= message %></p>
+      <button data-action="click->dismissable#dismiss" class="text-lg leading-none opacity-50 hover:opacity-100">&times;</button>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,14 @@
+<h1 class="text-2xl font-black mb-4"><%= @post.title %></h1>
+<div class="text-sm text-tv-gray mb-6">
+  <%= @post.category_name %> | <%= @post.user.nickname %> | <%= @post.created_at.strftime("%Y-%m-%d %H:%M") %>
+  | 조회 <%= @post.views_count %> | 좋아요 <%= @post.likes_count %> | 댓글 <%= @post.comments_count %>
+</div>
+<div class="bg-white rounded-card p-6 prose max-w-none mb-6">
+  <%= @post.body %>
+</div>
+<div class="flex gap-3">
+  <%= link_to "편집", edit_admin_post_path(@post), class: "bg-tv-gold text-tv-black rounded-pill px-5 py-2.5 text-sm font-bold" %>
+  <%= button_to "삭제", admin_post_path(@post), method: :delete,
+    data: { turbo_confirm: "삭제하시겠습니까?" }, class: "text-red-500 text-sm font-bold" %>
+  <%= link_to "목록", admin_posts_path, class: "text-tv-gray text-sm" %>
+</div>

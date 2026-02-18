@@ -1,0 +1,15 @@
+<%# 사용법: render "shared/breadcrumb", items: [{ name: "홈", path: root_path }, { name: "블로그" }] %>
+<nav aria-label="breadcrumb" class="mb-6">
+  <ol class="flex items-center gap-2 text-sm text-tv-gray">
+    <% items.each_with_index do |item, i| %>
+      <% if i > 0 %>
+        <li class="text-tv-light-gray">/</li>
+      <% end %>
+      <% if item[:path] %>
+        <li><%= link_to item[:name], item[:path], class: "hover:text-tv-black transition-colors" %></li>
+      <% else %>
+        <li class="text-tv-black font-medium"><%= item[:name] %></li>
+      <% end %>
+    <% end %>
+  </ol>
+</nav>

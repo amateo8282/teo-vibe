@@ -1,0 +1,20 @@
+<%= link_to url_for_post(post), class: "block" do %>
+  <div class="bg-white rounded-card p-6 hover:shadow-xl transition-shadow">
+    <% if post.pinned? %>
+      <span class="inline-block bg-tv-orange text-white rounded-pill px-3 py-1 text-xs font-bold mb-3">고정</span>
+    <% end %>
+    <div class="mb-3">
+      <%= render "shared/tag", text: post.category_name %>
+    </div>
+    <h2 class="text-xl font-extrabold mb-2 line-clamp-2"><%= post.title %></h2>
+    <p class="text-tv-gray text-sm mb-4 line-clamp-2"><%= post.body&.to_plain_text&.truncate(100) %></p>
+    <div class="flex items-center justify-between text-sm text-tv-light-gray">
+      <span><%= post.user.nickname %></span>
+      <div class="flex items-center gap-3">
+        <span><%= post.likes_count %> 좋아요</span>
+        <span><%= post.comments_count %> 댓글</span>
+        <span><%= time_ago_in_words(post.created_at) %> 전</span>
+      </div>
+    </div>
+  </div>
+<% end %>

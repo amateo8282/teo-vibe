@@ -1,0 +1,32 @@
+<%= form_with model: [:admin, section, card], class: "max-w-lg space-y-4" do |f| %>
+  <div>
+    <label class="block text-sm font-bold mb-1">제목</label>
+    <%= f.text_field :title, required: true, class: "w-full px-4 py-3 rounded-2xl border border-gray-300 focus:outline-none" %>
+  </div>
+  <div>
+    <label class="block text-sm font-bold mb-1">설명</label>
+    <%= f.text_area :description, rows: 3, class: "w-full px-4 py-3 rounded-2xl border border-gray-300 focus:outline-none resize-none" %>
+  </div>
+  <div>
+    <label class="block text-sm font-bold mb-1">아이콘 (이모지 또는 텍스트)</label>
+    <%= f.text_field :icon, class: "w-full px-4 py-3 rounded-2xl border border-gray-300 focus:outline-none" %>
+  </div>
+  <div class="grid grid-cols-2 gap-4">
+    <div>
+      <label class="block text-sm font-bold mb-1">링크 URL</label>
+      <%= f.text_field :link_url, class: "w-full px-4 py-3 rounded-2xl border border-gray-300 focus:outline-none" %>
+    </div>
+    <div>
+      <label class="block text-sm font-bold mb-1">링크 텍스트</label>
+      <%= f.text_field :link_text, class: "w-full px-4 py-3 rounded-2xl border border-gray-300 focus:outline-none" %>
+    </div>
+  </div>
+  <div>
+    <label class="block text-sm font-bold mb-1">순서</label>
+    <%= f.number_field :position, class: "w-full px-4 py-3 rounded-2xl border border-gray-300 focus:outline-none" %>
+  </div>
+  <div class="flex gap-3">
+    <%= link_to "취소", admin_landing_section_path(section), class: "border border-gray-300 rounded-pill px-6 py-3 text-sm font-bold" %>
+    <%= f.submit card.persisted? ? "수정" : "생성", class: "bg-tv-gold text-tv-black rounded-pill px-6 py-3 text-sm font-bold cursor-pointer" %>
+  </div>
+<% end %>

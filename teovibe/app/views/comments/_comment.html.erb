@@ -1,0 +1,35 @@
+<div id="<%= dom_id(comment) %>" class="border-b border-tv-cream pb-4">
+  <div class="flex items-start justify-between mb-2">
+    <div class="flex items-center gap-2">
+      <span class="font-bold text-sm"><%= comment.user.nickname %></span>
+      <span class="text-xs text-tv-light-gray"><%= time_ago_in_words(comment.created_at) %> 전</span>
+      <% if comment.accepted? %>
+        <span class="text-xs bg-tv-green text-white rounded-pill px-2 py-0.5 font-bold">채택</span>
+      <% end %>
+    </div>
+    <% if comment.user == Current.user || Current.user&.admin? %>
+      <%= button_to comments_path(comment), method: :delete,
+        data: { turbo_confirm: "정말 삭제하시겠습니까?" },
+        class: "text-xs text-tv-light-gray hover:text-red-500" do %>
+        삭제
+      <% end %>
+    <% end %>
+  </div>
+
+  <p class="text-base leading-relaxed mb-2"><%= comment.body %></p>
+
+  <div class="flex items-center gap-4 text-sm text-tv-gray">
+    <div id="<%= dom_id(comment, :like) %>">
+      <%= render "likes/button", likeable: comment %>
+    </div>
+  </div>
+
+  <%# 대댓글 %>
+  <% if comment.replies.any? %>
+    <div class="ml-8 mt-4 space-y-4">
+      <% comment.replies.includes(:user).each do |reply| %>
+        <%= render "comments/comment", comment: reply %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

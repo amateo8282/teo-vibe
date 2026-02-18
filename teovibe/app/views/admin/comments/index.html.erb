@@ -1,0 +1,20 @@
+<h1 class="text-2xl font-black mb-8">댓글 관리</h1>
+
+<div class="bg-white rounded-card divide-y">
+  <% @comments.each do |comment| %>
+    <div class="p-4 flex items-center justify-between">
+      <div>
+        <p class="text-sm"><%= comment.body.truncate(80) %></p>
+        <p class="text-xs text-tv-gray mt-1">
+          <%= comment.user.nickname %> - <%= comment.post.title.truncate(30) %> - <%= comment.created_at.strftime("%m/%d %H:%M") %>
+        </p>
+      </div>
+      <%= button_to "삭제", admin_comment_path(comment), method: :delete,
+        data: { turbo_confirm: "삭제하시겠습니까?" }, class: "text-xs text-red-500 hover:underline" %>
+    </div>
+  <% end %>
+</div>
+
+<div class="mt-6">
+  <%== @pagy.series_nav %>
+</div>

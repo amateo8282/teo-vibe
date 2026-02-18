@@ -1,0 +1,22 @@
+<%# FAQ 섹션: 아코디언 %>
+<section class="py-24 px-5" data-controller="scroll-animation">
+  <div class="max-w-[800px] mx-auto">
+    <h2 class="text-heading font-black text-center mb-16"><%= section.title %></h2>
+
+    <div class="divide-y divide-tv-light-gray/30">
+      <% section.section_cards.ordered.each do |card| %>
+        <div class="py-6" data-controller="reveal">
+          <button data-action="click->reveal#toggle" class="w-full flex items-center justify-between text-left">
+            <span class="text-lg font-black"><%= card.title %></span>
+            <svg data-reveal-target="icon" class="w-5 h-5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div data-reveal-target="content" class="hidden mt-4">
+            <p class="text-base text-tv-gray leading-relaxed"><%= card.description %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

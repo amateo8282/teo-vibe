@@ -1,0 +1,23 @@
+<div class="flex items-center justify-between mb-8">
+  <div>
+    <h1 class="text-2xl font-black"><%= @section.title %></h1>
+    <p class="text-sm text-tv-gray"><%= @section.section_type %> | 순서: <%= @section.position %></p>
+  </div>
+  <%= link_to "카드 추가", new_admin_landing_section_section_card_path(@section), class: "bg-tv-gold text-tv-black rounded-pill px-5 py-2.5 text-sm font-bold" %>
+</div>
+
+<div class="bg-white rounded-card divide-y">
+  <% @cards.each do |card| %>
+    <div class="p-4 flex items-center justify-between">
+      <div>
+        <p class="font-medium"><%= card.title %></p>
+        <p class="text-xs text-tv-gray"><%= card.description&.truncate(60) %></p>
+      </div>
+      <div class="flex items-center gap-2">
+        <%= link_to "편집", edit_admin_landing_section_section_card_path(@section, card), class: "text-xs text-tv-orange hover:underline" %>
+        <%= button_to "삭제", admin_landing_section_section_card_path(@section, card), method: :delete,
+          data: { turbo_confirm: "삭제하시겠습니까?" }, class: "text-xs text-red-500 hover:underline" %>
+      </div>
+    </div>
+  <% end %>
+</div>

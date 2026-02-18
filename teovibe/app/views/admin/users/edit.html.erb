@@ -1,0 +1,19 @@
+<h1 class="text-2xl font-black mb-8">사용자 편집 - <%= @user.nickname %></h1>
+<%= form_with model: [:admin, @user], class: "max-w-lg space-y-4" do |f| %>
+  <div>
+    <label class="block text-sm font-bold mb-1">닉네임</label>
+    <%= f.text_field :nickname, class: "w-full px-4 py-3 rounded-2xl border border-gray-300 focus:outline-none" %>
+  </div>
+  <div>
+    <label class="block text-sm font-bold mb-1">역할</label>
+    <%= f.select :role, User.roles.keys, {}, class: "w-full px-4 py-3 rounded-2xl border border-gray-300 focus:outline-none" %>
+  </div>
+  <div>
+    <label class="block text-sm font-bold mb-1">소개</label>
+    <%= f.text_area :bio, rows: 3, class: "w-full px-4 py-3 rounded-2xl border border-gray-300 focus:outline-none resize-none" %>
+  </div>
+  <div class="flex gap-3">
+    <%= link_to "취소", admin_users_path, class: "border border-gray-300 rounded-pill px-6 py-3 text-sm font-bold" %>
+    <%= f.submit "수정", class: "bg-tv-gold text-tv-black rounded-pill px-6 py-3 text-sm font-bold cursor-pointer" %>
+  </div>
+<% end %>

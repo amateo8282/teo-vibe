@@ -1,0 +1,11 @@
+<%= form_with model: Comment.new, url: comments_path, class: "mb-8" do |f| %>
+  <%= f.hidden_field :post_id, value: post.id %>
+  <% if defined?(parent) && parent %>
+    <%= f.hidden_field :parent_id, value: parent.id %>
+  <% end %>
+  <div class="flex gap-3">
+    <%= f.text_area :body, placeholder: "댓글을 입력하세요...", rows: 3, required: true,
+      class: "flex-1 px-4 py-3 rounded-2xl border border-tv-light-gray/50 focus:border-tv-gold focus:outline-none text-base resize-none" %>
+    <%= f.submit "작성", class: "self-end bg-tv-black text-white rounded-pill px-5 py-2.5 font-bold hover:opacity-90 transition-opacity cursor-pointer" %>
+  </div>
+<% end %>

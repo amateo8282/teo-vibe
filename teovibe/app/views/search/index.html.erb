@@ -1,0 +1,25 @@
+<div class="max-w-[1200px] mx-auto px-5 py-10">
+  <h1 class="text-3xl font-black mb-6">검색</h1>
+
+  <%= form_with url: search_path, method: :get, class: "mb-8" do |f| %>
+    <div class="flex gap-3">
+      <%= f.text_field :q, value: @query, placeholder: "검색어를 입력하세요...", autofocus: true,
+        class: "flex-1 px-4 py-3 rounded-2xl border border-tv-light-gray/50 focus:border-tv-gold focus:outline-none text-lg" %>
+      <%= f.submit "검색", class: "bg-tv-black text-white rounded-pill px-6 py-3 font-bold hover:opacity-90 transition-opacity cursor-pointer" %>
+    </div>
+  <% end %>
+
+  <% if @query.present? %>
+    <p class="text-tv-gray mb-6">"<%= @query %>" 검색 결과 <%= @posts.size %>건</p>
+    <% if @posts.any? %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% @posts.each do |post| %>
+          <%= render "posts/card", post: post %>
+        <% end %>
+      </div>
+      <div class="mt-10 flex justify-center">
+        <%== @pagy.series_nav if @pagy %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

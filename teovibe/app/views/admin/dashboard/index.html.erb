@@ -1,0 +1,48 @@
+<h1 class="text-2xl font-black mb-8">대시보드</h1>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+  <div class="bg-white rounded-card p-6">
+    <p class="text-sm text-tv-gray mb-1">전체 사용자</p>
+    <p class="text-3xl font-black"><%= @total_users %></p>
+  </div>
+  <div class="bg-white rounded-card p-6">
+    <p class="text-sm text-tv-gray mb-1">전체 게시글</p>
+    <p class="text-3xl font-black"><%= @total_posts %></p>
+  </div>
+  <div class="bg-white rounded-card p-6">
+    <p class="text-sm text-tv-gray mb-1">전체 댓글</p>
+    <p class="text-3xl font-black"><%= @total_comments %></p>
+  </div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+  <div>
+    <h2 class="text-lg font-bold mb-4">최근 게시글</h2>
+    <div class="bg-white rounded-card divide-y">
+      <% @recent_posts.each do |post| %>
+        <div class="p-4 flex justify-between items-center">
+          <div>
+            <p class="font-medium"><%= post.title.truncate(40) %></p>
+            <p class="text-xs text-tv-gray"><%= post.user.nickname %> - <%= post.created_at.strftime("%m/%d %H:%M") %></p>
+          </div>
+          <%= link_to "보기", admin_post_path(post), class: "text-sm text-tv-orange hover:underline" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-lg font-bold mb-4">최근 가입</h2>
+    <div class="bg-white rounded-card divide-y">
+      <% @recent_users.each do |user| %>
+        <div class="p-4 flex justify-between items-center">
+          <div>
+            <p class="font-medium"><%= user.nickname %></p>
+            <p class="text-xs text-tv-gray"><%= user.email_address %> - <%= user.created_at.strftime("%m/%d %H:%M") %></p>
+          </div>
+          <%= link_to "보기", admin_user_path(user), class: "text-sm text-tv-orange hover:underline" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

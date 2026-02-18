@@ -1,0 +1,29 @@
+<div class="max-w-[1200px] mx-auto px-5 py-10">
+  <%= render "shared/breadcrumb", items: [{ name: "홈", path: root_path }, { name: Post.new(category: @category).category_name }] %>
+
+  <div class="flex items-center justify-between mb-8">
+    <h1 class="text-3xl md:text-4xl font-black"><%= Post.new(category: @category).category_name %></h1>
+    <% if Current.user %>
+      <%= link_to "글쓰기", send("new_#{@category}_path"), class: "bg-tv-gold text-tv-black rounded-pill px-5 py-2.5 text-base font-bold hover:opacity-90 transition-opacity" %>
+    <% end %>
+  </div>
+
+  <% if @posts.any? %>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% @posts.each do |post| %>
+        <%= render "posts/card", post: post %>
+      <% end %>
+    </div>
+
+    <div class="mt-10 flex justify-center">
+      <%== @pagy.series_nav %>
+    </div>
+  <% else %>
+    <div class="text-center py-20">
+      <p class="text-tv-gray text-lg">아직 작성된 글이 없습니다.</p>
+      <% if Current.user %>
+        <%= link_to "첫 번째 글 작성하기", send("new_#{@category}_path"), class: "inline-block mt-4 bg-tv-black text-white rounded-pill px-6 py-3 font-bold hover:opacity-90" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

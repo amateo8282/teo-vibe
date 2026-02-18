@@ -1,0 +1,25 @@
+<%# 가격 플랜 섹션: 카드 가로 배치 %>
+<section class="py-24 px-5" data-controller="scroll-animation">
+  <div class="max-w-[1200px] mx-auto">
+    <%= render "shared/section_label", text: "PRICING" %>
+    <h2 class="text-subheading md:text-display font-black leading-tight mb-16" style="letter-spacing: -0.8px;">
+      <%= section.title %>
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-<%= [section.section_cards.count, 4].min %> gap-6">
+      <% section.section_cards.ordered.each_with_index do |card, i| %>
+        <div class="bg-white rounded-card p-6 <%= i == 1 ? 'shadow-xl ring-2 ring-tv-gold' : '' %>" data-controller="scroll-animation">
+          <h3 class="text-xl font-extrabold mb-2"><%= card.title %></h3>
+          <% if card.icon.present? %>
+            <p class="text-2xl font-black text-tv-orange mb-4"><%= card.icon %></p>
+          <% end %>
+          <p class="text-sm text-tv-gray leading-relaxed mb-6"><%= card.description %></p>
+          <% if card.link_url.present? %>
+            <%= link_to card.link_text || "선택하기", card.link_url,
+              class: "block text-center bg-tv-black text-white rounded-pill py-3 font-bold hover:opacity-90 transition-opacity" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

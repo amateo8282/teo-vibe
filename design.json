@@ -1,0 +1,509 @@
+{
+  "source": "https://memoirapp.com/",
+  "extractedAt": "2026-02-18",
+  "meta": {
+    "title": "성장하는 사람들의 회고 모임, 메모어",
+    "description": "커뮤니티 기반 주간 회고 서비스 랜딩페이지",
+    "pageHeight": "약 10,000px (싱글페이지 랜딩)",
+    "designStyle": "따뜻한 톤의 미니멀 브랜딩, 대담한 타이포그래피 중심, 그리드 패턴 배경"
+  },
+
+  "designTokens": {
+    "colors": {
+      "primary": {
+        "black": "#000000",
+        "white": "#FFFFFF",
+        "cream": "#F1EDE4",
+        "darkBrown": "#3E3A33",
+        "nearBlack": "#1D1403"
+      },
+      "accent": {
+        "gold": "#F4BA54",
+        "orange": "#E86221",
+        "warmOrange": "#FFAA54",
+        "deepGreen": "#124234",
+        "burgundy": "#8D3D3E"
+      },
+      "neutral": {
+        "gray": "#757369",
+        "lightGray": "#AAA9A7",
+        "mediumGray": "#808080"
+      },
+      "semantic": {
+        "navBackground": "rgba(255, 255, 255, 0.6)",
+        "cardShadow": "rgba(0, 0, 0, 0.2)"
+      }
+    },
+
+    "typography": {
+      "fontFamily": {
+        "primary": "Pretendard",
+        "system": "-apple-system, 'system-ui', 'Apple SD Gothic Neo', 'Pretendard Variable', Pretendard, Roboto, 'Noto Sans KR', 'Segoe UI', 'Malgun Gothic', sans-serif"
+      },
+      "fontSizes": {
+        "xs": "12px",
+        "sm": "14px",
+        "base": "16px",
+        "md": "18px",
+        "lg": "20px",
+        "xl": "22px",
+        "2xl": "24px",
+        "4xl": "50px",
+        "5xl": "60px",
+        "7xl": "90px"
+      },
+      "fontWeights": {
+        "regular": "400",
+        "medium": "500",
+        "semibold": "600",
+        "bold": "700",
+        "extrabold": "800",
+        "black": "900"
+      },
+      "lineHeights": {
+        "tight": "22px",
+        "base": "24px",
+        "relaxed": "26px",
+        "loose": "32px",
+        "heading": "36px",
+        "display": "65px",
+        "hero": "80px"
+      },
+      "letterSpacing": "-0.8px"
+    },
+
+    "spacing": {
+      "gaps": ["8px", "10px", "11px", "12px", "20px", "24px", "27px", "40px", "67px"]
+    },
+
+    "borderRadius": {
+      "sm": "6px",
+      "lg": "24px",
+      "xl": "28px",
+      "full": "100px"
+    }
+  },
+
+  "components": {
+    "navigation": {
+      "description": "상단 고정 네비게이션, 반투명 배경, 좌측 로고 + 가운데 링크 + 우측 CTA",
+      "style": {
+        "position": "fixed",
+        "height": "86px",
+        "background": "rgba(255, 255, 255, 0.6)",
+        "backdropFilter": "blur (추정)",
+        "padding": "14px 20px"
+      },
+      "links": [
+        { "text": "활동 소개", "anchor": "#activity" },
+        { "text": "메모어 후기", "anchor": "#review" },
+        { "text": "가격 플랜", "anchor": "#pricing" },
+        { "text": "메모어 클럽", "anchor": "#club" },
+        { "text": "FAQ", "anchor": "#faq" }
+      ],
+      "ctaButton": {
+        "text": "신청하기",
+        "background": "#F4BA54",
+        "borderRadius": "100px",
+        "padding": "14px 20px"
+      }
+    },
+
+    "buttons": {
+      "primary": {
+        "description": "주요 CTA 버튼 (어두운 배경, 흰 텍스트, pill 형태)",
+        "background": "#000000",
+        "color": "#FFFFFF",
+        "borderRadius": "100px",
+        "padding": "14px 20px",
+        "fontSize": "18px"
+      },
+      "heroCta": {
+        "description": "히어로 섹션 CTA (큰 사이즈, 화살표 아이콘 포함)",
+        "background": "#000000",
+        "color": "#FFFFFF",
+        "borderRadius": "100px",
+        "padding": "23px 28px",
+        "fontSize": "16px",
+        "hasArrowIcon": true
+      },
+      "navCta": {
+        "description": "네비게이션 CTA 버튼 (골드 배경)",
+        "background": "#F4BA54",
+        "color": "#000000",
+        "borderRadius": "100px"
+      }
+    },
+
+    "tags": {
+      "description": "직무/분야 태그 (pill 형태, 어두운 배경)",
+      "style": {
+        "background": "#000000",
+        "color": "#FFFFFF",
+        "borderRadius": "100px",
+        "padding": "8px 14px",
+        "fontSize": "16px",
+        "fontWeight": "900"
+      },
+      "examples": ["Sales", "B2B Solution", "모빌리티", "마케터", "IT", "PO"]
+    },
+
+    "clubTabs": {
+      "description": "클럽 카테고리 탭 (pill 형태, 흰 배경, 버건디 텍스트)",
+      "style": {
+        "background": "#FFFFFF",
+        "color": "#8D3D3E",
+        "borderRadius": "100px",
+        "padding": "12px 20px",
+        "fontSize": "16px"
+      },
+      "items": ["네트워킹", "챌린지", "러닝", "취미활동", "스터디"]
+    },
+
+    "pricingCard": {
+      "description": "가격 플랜 카드 (흰 배경, 둥근 모서리, 강조 카드에 그림자)",
+      "style": {
+        "background": "#FFFFFF",
+        "borderRadius": "24px",
+        "padding": "16px 22px",
+        "width": "344px",
+        "height": "377px"
+      },
+      "highlighted": {
+        "boxShadow": "rgba(0, 0, 0, 0.2) 0px 4px 30px 0px",
+        "note": "오프라인 멤버십이 강조 카드"
+      },
+      "plans": [
+        {
+          "name": "온라인 멤버십",
+          "price": "멤버십 10만원 + 보증금 10만원",
+          "features": [
+            "매주 회고/댓글 작성(온라인)",
+            "모임장이 있고, 모임별 인원 8~10명 구성",
+            "온라인으로 정기모임 3회 진행",
+            "취미/자기계발 클럽 참여권",
+            "자유로운 홍보/커피챗"
+          ]
+        },
+        {
+          "name": "오프라인 멤버십",
+          "price": "멤버십 10만원 + 보증금 10만원",
+          "features": [
+            "매주 회고/댓글 작성(온라인)",
+            "모임장이 있고, 모임별 인원 8~10명 구성",
+            "오프라인으로 정기모임 3회 진행",
+            "취미/자기계발 클럽 참여권",
+            "자유로운 홍보/커피챗"
+          ],
+          "isHighlighted": true
+        },
+        {
+          "name": "테마모임 멤버십",
+          "price": "멤버십 10만원 + 보증금 10만원",
+          "features": [
+            "테마에 맞게 매주 회고/댓글 작성(온라인)",
+            "모임장이 있고, 모임별 인원 8~10명 구성",
+            "온/오프라인으로 정기모임 3회 진행",
+            "취미/자기계발 클럽 참여권",
+            "자유로운 홍보/커피챗"
+          ]
+        },
+        {
+          "name": "쉐어온리 멤버십",
+          "price": "멤버십 10만원 + 보증금 10만원",
+          "features": [
+            "별도의 모임 없이 매주 회고/댓글 작성 (온라인)",
+            "취미/자기계발 클럽 참여권",
+            "자유로운 홍보/커피챗"
+          ]
+        }
+      ]
+    },
+
+    "faqAccordion": {
+      "description": "FAQ 아코디언 (구분선으로 나뉨, 클릭 시 확장)",
+      "style": {
+        "questionFontSize": "18px",
+        "questionFontWeight": "900",
+        "questionColor": "#1D1403",
+        "answerFontSize": "16px",
+        "answerColor": "#757369",
+        "separator": "border-bottom 1px"
+      },
+      "items": [
+        "메모어 참여 자격은 어떻게 되나요?",
+        "참여 비용은 얼마인가요?",
+        "한 기수가 진행되는 기간은 어떻게 되나요?",
+        "중간에 참여하거나, 빠질 수 있나요?"
+      ]
+    }
+  },
+
+  "sections": [
+    {
+      "id": "hero",
+      "name": "히어로 섹션",
+      "height": "744px",
+      "background": "크림색(#F1EDE4) + 그리드 패턴 배경 이미지",
+      "layout": {
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center"
+      },
+      "content": {
+        "headline": {
+          "text": "성장하는 사람들과 한 주를 회고하는 모임",
+          "fontSize": "90px",
+          "fontWeight": "900",
+          "color": "#000000",
+          "textAlign": "center"
+        },
+        "decorativeElements": [
+          "말풍선: '함께 쓰고, 읽고, 만나는' (흰 배경, 둥근 모서리)",
+          "말풍선: '내 삶의 터닝포인트' (흰 배경, 둥근 모서리)",
+          "피스 사인 이모티콘 이미지",
+          "다이아몬드 장식 아이콘 (초록 + 골드)",
+          "메모어 원형 뱃지 (주황색)"
+        ],
+        "ctaButton": {
+          "text": "신청하기 ->",
+          "style": "heroCta"
+        }
+      }
+    },
+    {
+      "id": "video",
+      "name": "비디오 섹션",
+      "height": "744px",
+      "description": "HTML5 비디오가 전체 화면으로 재생되는 섹션",
+      "label": "WHAT'S MEMOIR"
+    },
+    {
+      "id": "activity",
+      "name": "활동 소개 섹션",
+      "height": "1102px",
+      "background": "투명 (상위 크림 배경 계승)",
+      "subsections": [
+        {
+          "name": "소개 문구",
+          "headline": {
+            "text": "휘발되고 있는 경험과 생각을 회고를 통해 온전히 나의 것으로 만들고 성장해 보세요.",
+            "fontSize": "24px",
+            "fontWeight": "700",
+            "lineHeight": "36px"
+          }
+        },
+        {
+          "name": "3단 기능 소개",
+          "label": "WHAT DO I DO IN MEMOIR?",
+          "sectionTitle": "메모어에서는 무엇을 하나요?",
+          "cards": [
+            {
+              "title": "하나, 회고를 작성해요",
+              "description": "일주일 동안의 나를 돌아보고, 보고 배우고 느낀 점을 기록해요.",
+              "titleStyle": { "fontSize": "24px", "fontWeight": "800" },
+              "descStyle": { "fontSize": "16px", "color": "#757369", "lineHeight": "24px" },
+              "hasIcon": true
+            },
+            {
+              "title": "둘, 서로의 회고를 읽어요",
+              "description": "다양한 분야에서 성장하는 사람들의 삶을 간접 체험할 수 있어요.",
+              "hasIcon": true
+            },
+            {
+              "title": "셋, 온/오프라인으로 만나요",
+              "description": "회고하는 멤버들과 함께 만나 다양한 활동과 밀도있는 대화를 나눠요.",
+              "hasIcon": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stats",
+      "name": "통계 섹션",
+      "height": "744px",
+      "layout": "flex, center",
+      "content": {
+        "headline": {
+          "text": "약 6천 명의 멤버 분들이 함께",
+          "fontSize": "60px",
+          "fontWeight": "900"
+        },
+        "stats": [
+          { "label": "쓰고", "hasImage": true },
+          { "label": "읽고", "hasImage": true },
+          { "label": "만나왔어요", "hasImage": true }
+        ],
+        "statLabelStyle": {
+          "fontSize": "60px",
+          "fontWeight": "900",
+          "lineHeight": "65px"
+        }
+      }
+    },
+    {
+      "id": "testimonials",
+      "name": "멤버 후기 섹션",
+      "height": "945px",
+      "background": "어두운 톤 (검정 계열)",
+      "label": "MEET NEW PEOPLE",
+      "content": {
+        "headline": {
+          "text": "다양한 분야에 있는 멤버들의 삶과 인사이트를 엿볼 수 있어요.",
+          "fontSize": "60px",
+          "fontWeight": "900",
+          "color": "#FFFFFF"
+        },
+        "testimonialCards": [
+          {
+            "tags": ["Sales", "B2B Solution"],
+            "quote": "주간 회고를 통해 제 삶과 생각이 보다 정리되고, 하루와 한 주가 안정화되는 걸 체감하고 있어요...",
+            "author": "노주환",
+            "company": "Meta(페이스북)",
+            "hasAvatar": true
+          },
+          {
+            "tags": ["모빌리티", "마케터"],
+            "quote": "메모어에서 결이 잘 맞고 대화가 잘 통하는 사람들을 많이 만났어요...",
+            "author": "유재민",
+            "company": "KIA(기아)",
+            "hasAvatar": true
+          },
+          {
+            "tags": ["IT", "PO"],
+            "quote": "일로 바쁜 시기에, 쉽게 놓칠 수 있는 삶 속 배움을 차곡 차곡 모을 수 있어서 좋았어요...",
+            "author": "이강희",
+            "company": "토스 증권",
+            "hasAvatar": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "pricing",
+      "name": "가격 플랜 섹션",
+      "height": "926px",
+      "label": "Pricing",
+      "content": {
+        "headline": {
+          "text": "매월 책 한 권의 값으로, 성장의 습관과 변화의 기회를 만들 수 있어요.",
+          "fontSize": "60px",
+          "fontWeight": "900"
+        },
+        "formula": "보증금 20만원 - (멤버쉽 비용 + 회고/댓글 미작성 시 차감액)",
+        "note": "*회고 1주 1개 미작성 2만원, 댓글 2주 4개 미작성 1만원 차감",
+        "cardLayout": "4열 가로 배치, 강조 카드(오프라인)에 그림자"
+      }
+    },
+    {
+      "id": "review",
+      "name": "미디어/후기 섹션",
+      "height": "1623px",
+      "label": "Media",
+      "content": {
+        "headline": {
+          "text": "메모어 멤버들의 활동 후기를 확인해보세요",
+          "fontSize": "60px",
+          "fontWeight": "900"
+        },
+        "blogReviews": [
+          {
+            "title": "회고 모임 메모어 14기 후기",
+            "source": "2024.05.16 네이버 블로그, Damia",
+            "titleStyle": { "fontSize": "24px", "fontWeight": "800" }
+          },
+          {
+            "title": "(Write, Meet -Memoir!) 메모어 후기",
+            "source": "2024.05.01 네이버 블로그, Jjam"
+          },
+          {
+            "title": "한겹 한겹 나를 쌓는 일주일 회고 (메모어 20기 후기)",
+            "source": "2025.09.29 유튜브, 단단_최소기록의 법칙"
+          }
+        ],
+        "mediaFeatures": [
+          {
+            "title": "MZ세대가 직접 뽑은 2023 상반기 트렌드",
+            "source": "트렌드 뉴스레터, 캐릿"
+          },
+          {
+            "title": "스타트업 대표들도 하는 커뮤니티 '메모어', 어떤 곳일까?",
+            "source": "쉽고 재미있는 IT뉴스, 아웃스탠딩"
+          },
+          {
+            "title": "\"상세페이지로 스몰 브랜드의 성공 여부 가늠해요\" 스몰브랜더 인터뷰",
+            "source": "여성동아"
+          }
+        ]
+      }
+    },
+    {
+      "id": "club",
+      "name": "클럽 활동 섹션",
+      "height": "1023px",
+      "label": "Club Activities",
+      "content": {
+        "headline": {
+          "text": "회고하는 멤버들과 자기개발과 취미를 함께해 보세요",
+          "fontSize": "60px",
+          "fontWeight": "900"
+        },
+        "tabs": ["네트워킹", "챌린지", "러닝", "취미활동", "스터디"],
+        "hasVideo": true,
+        "note": "탭 클릭 시 해당 카테고리 영상으로 전환"
+      }
+    },
+    {
+      "id": "faq",
+      "name": "FAQ 섹션",
+      "height": "1208px",
+      "content": {
+        "headline": {
+          "text": "자주 묻는 질문",
+          "fontSize": "50px",
+          "fontWeight": "900"
+        },
+        "items": 4,
+        "closingCta": {
+          "headline": "메모어와 가장 밀도있는 성장을 함께해요.",
+          "buttonText": "더 알아보기",
+          "buttonBackground": "#E86221"
+        }
+      }
+    }
+  ],
+
+  "footer": {
+    "background": "#3E3A33",
+    "padding": "67px 0px 108px 180px",
+    "textColor": "#AAA9A7",
+    "content": {
+      "contactEmail": "memoirapp.com@gmail.com",
+      "kakaoChannel": "http://pf.kakao.com/_fNCWxb",
+      "company": "주식회사 메모어",
+      "ceo": "한예솔",
+      "phone": "070-8820-6745",
+      "businessNumber": "537-87-02549",
+      "address": "서울특별시 강남구 봉은사로 18길 88, 역삼빌딩 202호"
+    },
+    "links": [
+      { "text": "이용약관" },
+      { "text": "개인정보처리방침" },
+      { "text": "청약철회/환불조건" }
+    ],
+    "socialLinks": ["Instagram", "Kakao"]
+  },
+
+  "designPatterns": {
+    "overallTheme": "따뜻하고 자연스러운 톤 (크림, 골드, 버건디) + 대담한 블랙 타이포그래피",
+    "backgroundPattern": "연한 크림(#F1EDE4) 바탕에 미세한 그리드/격자 패턴",
+    "sectionLabels": "각 섹션 상단에 영문 라벨 (예: 'WHAT'S MEMOIR', 'Pricing', 'Media'). 대문자, 작은 사이즈",
+    "headlineStyle": "60~90px 블랙(900) 볼드 한글 타이포, 줄바꿈으로 리듬감 부여",
+    "cardStyle": "흰 배경, border-radius 24px, 미니멀한 패딩, 강조 시 box-shadow",
+    "pillButtons": "모든 버튼과 태그에 border-radius: 100px (pill/capsule 형태)",
+    "decorativeElements": "말풍선, 스티커 스타일 아이콘, 핸드드로잉 느낌의 장식 요소",
+    "scrollAnimation": "섹션 전환 시 페이드/슬라이드 애니메이션 (추정)",
+    "responsiveNote": "데스크톱 기준 max-width 약 1200px, 카드는 가로 배치"
+  }
+}

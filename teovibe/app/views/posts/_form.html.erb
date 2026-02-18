@@ -1,0 +1,28 @@
+<%= form_with model: post, url: post.persisted? ? send("#{post.category}_path", post) : send("#{post.category.pluralize}_path"), class: "space-y-6" do |f| %>
+  <% if post.errors.any? %>
+    <div class="bg-red-50 text-red-800 border border-red-200 rounded-2xl px-4 py-3 text-sm">
+      <ul class="list-disc list-inside space-y-1">
+        <% post.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <label for="post_title" class="block text-sm font-bold mb-1">제목</label>
+    <%= f.text_field :title, required: true, placeholder: "제목을 입력하세요",
+      class: "w-full px-4 py-3 rounded-2xl border border-tv-light-gray/50 focus:border-tv-gold focus:outline-none text-lg font-bold" %>
+  </div>
+
+  <div>
+    <label for="post_body" class="block text-sm font-bold mb-1">본문</label>
+    <%= f.rich_text_area :body, class: "w-full min-h-[300px] rounded-2xl border border-tv-light-gray/50 focus:border-tv-gold focus:outline-none" %>
+  </div>
+
+  <div class="flex justify-end gap-3">
+    <%= link_to "취소", :back, class: "border border-tv-black text-tv-black rounded-pill px-6 py-3 font-bold hover:bg-tv-black hover:text-white transition-colors" %>
+    <%= f.submit post.persisted? ? "수정하기" : "작성하기",
+      class: "bg-tv-gold text-tv-black rounded-pill px-6 py-3 font-bold hover:opacity-90 transition-opacity cursor-pointer" %>
+  </div>
+<% end %>
