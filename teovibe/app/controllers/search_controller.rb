@@ -4,13 +4,51 @@ class SearchController < ApplicationController
   def index
     @query = params[:q].to_s.strip
     if @query.present?
-      @posts = Post.published
-        .where("title LIKE ? OR slug LIKE ?", "%#{@query}%", "%#{@query}%")
-        .includes(:user)
-        .order(created_at: :desc)
+      # FTS5 전문 검색
+      post_ids = Post.connection.select_values(
+        Post.sanitize_sql(["SELECT rowid FROM posts_fts WHERE posts_fts MATCH ?", fts_query(@query)])
+      )
+
+      if post_ids.any?
+        @posts = Post.published.where(id: post_ids).includes(:user).order(created_at: :desc)
+      else
+        # FTS5 매치 없으면 LIKE 폴백
+        @posts = Post.published
+          .where("title LIKE ? OR slug LIKE ?", "%#{@query}%", "%#{@query}%")
+          .includes(:user)
+          .order(created_at: :desc)
+      end
+
       @pagy, @posts = pagy(:offset, @posts, limit: 12)
     else
       @posts = Post.none
     end
+  end
+
+  def suggestions
+    query = params[:q].to_s.strip
+    if query.length >= 2
+      # FTS5 prefix 검색으로 자동완성
+      results = Post.connection.select_all(
+        Post.sanitize_sql([
+          "SELECT rowid FROM posts_fts WHERE posts_fts MATCH ? LIMIT 5",
+          "#{fts_query(query)}*"
+        ])
+      )
+      post_ids = results.map { |r| r["rowid"] }
+      @suggestions = Post.published.where(id: post_ids).limit(5).pluck(:title)
+    else
+      @suggestions = []
+    end
+
+    render json: @suggestions
+  end
+
+  private
+
+  # FTS5 쿼리 안전 변환 (특수문자 이스케이프)
+  def fts_query(query)
+    # FTS5 특수문자 제거 후 공백으로 AND 검색
+    query.gsub(/[^가-힣a-zA-Z0-9\s]/, "").strip
   end
 end

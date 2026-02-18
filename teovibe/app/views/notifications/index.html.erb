@@ -1,0 +1,46 @@
+<div class="max-w-[800px] mx-auto px-5 py-16">
+  <div class="flex items-center justify-between mb-8">
+    <h1 class="text-display font-black">알림</h1>
+    <% if Current.user.notifications.unread.any? %>
+      <%= button_to "모두 읽음", mark_all_read_notifications_path, method: :patch,
+        class: "text-sm text-tv-orange hover:underline font-bold" %>
+    <% end %>
+  </div>
+
+  <% if @notifications.any? %>
+    <div class="space-y-2">
+      <% @notifications.each do |notif| %>
+        <div class="bg-white rounded-card p-4 shadow-sm flex items-start gap-3 <%= notif.read? ? 'opacity-60' : 'border-l-4 border-tv-gold' %>">
+          <div class="flex-1">
+            <p class="text-sm">
+              <% if notif.actor && notif.actor != Current.user %>
+                <span class="font-bold"><%= notif.actor.nickname %></span>
+              <% end %>
+              <span class="text-tv-gray">
+                <% if notif.new_comment? %> 님이 내 글에 댓글을 남겼습니다.
+                <% elsif notif.comment_reply? %> 님이 내 댓글에 답글을 남겼습니다.
+                <% elsif notif.post_liked? %> 님이 내 글을 좋아합니다.
+                <% elsif notif.comment_liked? %> 님이 내 댓글을 좋아합니다.
+                <% elsif notif.level_up? %> 레벨이 올랐습니다! 축하합니다!
+                <% end %>
+              </span>
+            </p>
+            <p class="text-xs text-tv-light-gray mt-1"><%= time_ago_in_words(notif.created_at) %> 전</p>
+          </div>
+          <% unless notif.read? %>
+            <%= button_to "읽음", read_notification_path(notif), method: :patch,
+              class: "text-xs text-tv-orange hover:underline whitespace-nowrap" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="mt-8">
+      <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+    </div>
+  <% else %>
+    <div class="bg-white rounded-card-lg p-12 text-center shadow-sm">
+      <p class="text-lg text-tv-gray">알림이 없습니다.</p>
+    </div>
+  <% end %>
+</div>

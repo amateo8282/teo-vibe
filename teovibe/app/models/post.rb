@@ -10,6 +10,8 @@ class Post < ApplicationRecord
   validates :title, presence: true, length: { maximum: 200 }
   validates :slug, uniqueness: true, allow_blank: true
 
+  after_create :award_points
+
   scope :published, -> { where(status: :published) }
   scope :pinned_first, -> { order(pinned: :desc, created_at: :desc) }
 
@@ -46,6 +48,10 @@ class Post < ApplicationRecord
   end
 
   private
+
+  def award_points
+    PointService.award(:post_created, user: user, pointable: self)
+  end
 
   def generate_slug
     base = "#{id || Post.maximum(:id).to_i + 1}-#{title.parameterize}"

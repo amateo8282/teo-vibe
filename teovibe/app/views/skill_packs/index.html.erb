@@ -1,0 +1,54 @@
+<div class="max-w-[1200px] mx-auto px-5 py-16">
+  <h1 class="text-display font-black text-center mb-4">스킬팩</h1>
+  <p class="text-xl text-tv-gray text-center mb-12">바이브코딩에 필요한 템플릿, 컴포넌트, 가이드를 무료로 다운로드하세요.</p>
+
+  <%# 카테고리 필터 %>
+  <div class="flex justify-center gap-3 mb-12">
+    <%= link_to "전체", skill_packs_path,
+      class: "px-5 py-2 rounded-pill text-sm font-bold transition-colors #{params[:category].blank? ? 'bg-tv-gold text-tv-black' : 'bg-tv-cream text-tv-gray hover:bg-tv-gold/20'}" %>
+    <% SkillPack.categories.keys.each do |cat| %>
+      <%= link_to SkillPack.new(category: cat).category_name, skill_packs_path(category: cat),
+        class: "px-5 py-2 rounded-pill text-sm font-bold transition-colors #{params[:category] == cat ? 'bg-tv-gold text-tv-black' : 'bg-tv-cream text-tv-gray hover:bg-tv-gold/20'}" %>
+    <% end %>
+  </div>
+
+  <%# 그리드 카드 목록 %>
+  <% if @skill_packs.any? %>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% @skill_packs.each do |skill_pack| %>
+        <%= link_to skill_pack_path(skill_pack), class: "block bg-white rounded-card-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow" do %>
+          <% if skill_pack.thumbnail.attached? %>
+            <%= image_tag skill_pack.thumbnail, class: "w-full h-48 object-cover", loading: "lazy" %>
+          <% else %>
+            <div class="w-full h-48 bg-tv-cream flex items-center justify-center">
+              <svg class="w-12 h-12 text-tv-light-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/>
+              </svg>
+            </div>
+          <% end %>
+          <div class="p-5">
+            <span class="inline-block px-3 py-1 rounded-pill text-xs font-bold bg-tv-cream text-tv-gray mb-3">
+              <%= skill_pack.category_name %>
+            </span>
+            <h3 class="text-lg font-bold mb-2"><%= skill_pack.title %></h3>
+            <p class="text-sm text-tv-gray line-clamp-2"><%= skill_pack.description %></p>
+            <div class="mt-4 flex items-center gap-2 text-sm text-tv-light-gray">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+              </svg>
+              <%= skill_pack.downloads_count %>회 다운로드
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="mt-12">
+      <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+    </div>
+  <% else %>
+    <div class="text-center py-16">
+      <p class="text-lg text-tv-gray">등록된 스킬팩이 없습니다.</p>
+    </div>
+  <% end %>
+</div>

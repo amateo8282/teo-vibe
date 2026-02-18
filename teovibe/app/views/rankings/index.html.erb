@@ -1,0 +1,53 @@
+<div class="max-w-[800px] mx-auto px-5 py-16">
+  <h1 class="text-display font-black text-center mb-4">랭킹</h1>
+  <p class="text-xl text-tv-gray text-center mb-12">활발하게 활동하는 멤버를 만나보세요.</p>
+
+  <% if @users.any? %>
+    <div class="bg-white rounded-card-lg shadow-sm overflow-hidden">
+      <table class="w-full">
+        <thead class="bg-tv-cream">
+          <tr>
+            <th class="text-center px-4 py-3 text-sm font-bold w-16">순위</th>
+            <th class="text-left px-4 py-3 text-sm font-bold">멤버</th>
+            <th class="text-center px-4 py-3 text-sm font-bold">레벨</th>
+            <th class="text-right px-4 py-3 text-sm font-bold">포인트</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-tv-cream">
+          <% @users.each_with_index do |user, index| %>
+            <tr class="<%= index < 3 ? 'bg-tv-gold/5' : 'hover:bg-tv-cream/50' %>">
+              <td class="text-center px-4 py-4">
+                <% if index == 0 %>
+                  <span class="text-2xl font-black text-tv-gold">1</span>
+                <% elsif index == 1 %>
+                  <span class="text-xl font-black text-tv-light-gray">2</span>
+                <% elsif index == 2 %>
+                  <span class="text-xl font-black text-tv-orange">3</span>
+                <% else %>
+                  <span class="text-sm font-bold text-tv-gray"><%= index + 1 %></span>
+                <% end %>
+              </td>
+              <td class="px-4 py-4">
+                <span class="font-bold <%= index < 3 ? 'text-lg' : '' %>"><%= user.nickname %></span>
+              </td>
+              <td class="text-center px-4 py-4">
+                <span class="inline-block px-3 py-1 rounded-pill text-xs font-bold bg-tv-cream text-tv-dark">
+                  Lv.<%= user.level %>
+                </span>
+              </td>
+              <td class="text-right px-4 py-4">
+                <span class="font-bold <%= index < 3 ? 'text-tv-gold text-lg' : 'text-tv-gray' %>">
+                  <%= number_with_delimiter(user.points) %>P
+                </span>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div class="text-center py-16">
+      <p class="text-lg text-tv-gray">아직 활동 기록이 없습니다.</p>
+    </div>
+  <% end %>
+</div>

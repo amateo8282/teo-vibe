@@ -7,8 +7,22 @@ class Comment < ApplicationRecord
 
   validates :body, presence: true, length: { maximum: 2000 }
 
+  after_create :award_points
+  after_create :send_notifications
+
   def liked_by?(user)
     return false unless user
     likes.exists?(user: user)
+  end
+
+  private
+
+  def award_points
+    PointService.award(:comment_created, user: user, pointable: self)
+  end
+
+  def send_notifications
+    NotificationService.comment_created(self)
+    NotificationService.comment_replied(self) if parent.present?
   end
 end

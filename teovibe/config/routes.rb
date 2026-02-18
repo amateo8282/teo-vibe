@@ -34,8 +34,30 @@ Rails.application.routes.draw do
     resource :like, only: %i[create destroy]
   end
 
+  # 스킬팩
+  resources :skill_packs, only: [:index, :show] do
+    member { get :download }
+  end
+  get "dl/:download_token", to: "skill_packs#token_download", as: :token_download
+
+  # 문의
+  resources :inquiries, only: [:new, :create]
+
+  # 알림
+  resources :notifications, only: [:index] do
+    collection { patch :mark_all_read }
+    member { patch :read }
+  end
+
+  # 랭킹
+  resources :rankings, only: [:index]
+
+  # 포인트 히스토리
+  get "me/points", to: "profiles#points", as: :my_points
+
   # 검색
   get "search", to: "search#index", as: :search
+  get "search/suggestions", to: "search#suggestions", as: :search_suggestions
 
   # 정적 페이지
   get "about", to: "pages#about", as: :about
@@ -55,9 +77,16 @@ Rails.application.routes.draw do
       end
       resources :section_cards, except: %i[index]
     end
+    resources :skill_packs
     resources :posts, only: %i[index show edit update destroy]
     resources :users, only: %i[index show edit update]
     resources :comments, only: %i[index destroy]
+    resources :inquiries, only: [:index, :show, :update] do
+      member do
+        patch :reply
+        patch :close
+      end
+    end
   end
 
   # Health check

@@ -7,11 +7,9 @@
 
   <div class="bg-white rounded-card-lg p-8 text-center">
     <p class="text-lg text-tv-gray mb-6">
-      컨설팅 서비스는 준비 중입니다.<br>
-      관심 있으시면 아래로 문의해주세요.
+      컨설팅이 필요하시면 아래 버튼을 눌러 문의해주세요.<br>
+      빠른 시일 내에 답변 드리겠습니다.
     </p>
-    <a href="mailto:teovibe@example.com" class="inline-block bg-tv-gold text-tv-black rounded-pill px-8 py-4 text-lg font-bold hover:opacity-90 transition-opacity">
-      문의하기
-    </a>
+    <%= link_to "문의하기", new_inquiry_path, class: "inline-block bg-tv-gold text-tv-black rounded-pill px-8 py-4 text-lg font-bold hover:opacity-90 transition-opacity" %>
   </div>
 </div>

@@ -1,0 +1,65 @@
+<div class="max-w-[800px] mx-auto px-5 py-16">
+  <h1 class="text-display font-black mb-4">내 포인트</h1>
+
+  <%# 포인트 요약 %>
+  <div class="grid grid-cols-2 gap-4 mb-8">
+    <div class="bg-white rounded-card-lg p-6 text-center shadow-sm">
+      <p class="text-sm text-tv-gray mb-1">총 포인트</p>
+      <p class="text-3xl font-black text-tv-gold"><%= number_with_delimiter(@user.points) %>P</p>
+    </div>
+    <div class="bg-white rounded-card-lg p-6 text-center shadow-sm">
+      <p class="text-sm text-tv-gray mb-1">현재 레벨</p>
+      <p class="text-3xl font-black text-tv-dark">Lv.<%= @user.level %></p>
+    </div>
+  </div>
+
+  <%# 레벨 진행률 %>
+  <% next_level = [@user.level + 1, 10].min %>
+  <% current_threshold = PointService::LEVEL_THRESHOLDS[@user.level] || 0 %>
+  <% next_threshold = PointService::LEVEL_THRESHOLDS[next_level] || current_threshold %>
+  <% if next_threshold > current_threshold %>
+    <% progress = [(@user.points - current_threshold).to_f / (next_threshold - current_threshold) * 100, 100].min %>
+    <div class="bg-white rounded-card-lg p-6 mb-8 shadow-sm">
+      <div class="flex justify-between text-sm mb-2">
+        <span class="text-tv-gray">다음 레벨까지</span>
+        <span class="font-bold"><%= next_threshold - @user.points %>P 남음</span>
+      </div>
+      <div class="w-full bg-tv-cream rounded-full h-3">
+        <div class="bg-tv-gold rounded-full h-3 transition-all" style="width: <%= progress %>%"></div>
+      </div>
+    </div>
+  <% end %>
+
+  <%# 포인트 히스토리 %>
+  <h2 class="text-xl font-bold mb-4">포인트 내역</h2>
+  <% if @point_transactions.any? %>
+    <div class="bg-white rounded-card-lg shadow-sm overflow-hidden">
+      <table class="w-full text-sm">
+        <thead class="bg-tv-cream">
+          <tr>
+            <th class="text-left px-4 py-3 font-bold">날짜</th>
+            <th class="text-left px-4 py-3 font-bold">활동</th>
+            <th class="text-right px-4 py-3 font-bold">포인트</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-tv-cream">
+          <% @point_transactions.each do |pt| %>
+            <tr class="hover:bg-tv-cream/50">
+              <td class="px-4 py-3 text-tv-gray"><%= pt.created_at.strftime("%Y.%m.%d %H:%M") %></td>
+              <td class="px-4 py-3"><%= pt.description %></td>
+              <td class="px-4 py-3 text-right font-bold text-tv-gold">+<%= pt.amount %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-6">
+      <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+    </div>
+  <% else %>
+    <div class="bg-white rounded-card-lg p-8 text-center shadow-sm">
+      <p class="text-tv-gray">아직 포인트 내역이 없습니다.</p>
+    </div>
+  <% end %>
+</div>

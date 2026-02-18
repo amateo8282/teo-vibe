@@ -1,0 +1,57 @@
+<%= form_with(model: [:admin, skill_pack], class: "space-y-6") do |f| %>
+  <% if skill_pack.errors.any? %>
+    <div class="bg-red-50 border border-red-200 rounded-card p-4">
+      <ul class="list-disc pl-5 text-sm text-red-600">
+        <% skill_pack.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :title, "제목", class: "block text-sm font-bold mb-1" %>
+    <%= f.text_field :title, class: "w-full border border-tv-cream rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-tv-gold" %>
+  </div>
+
+  <div>
+    <%= f.label :description, "설명", class: "block text-sm font-bold mb-1" %>
+    <%= f.text_area :description, rows: 5, class: "w-full border border-tv-cream rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-tv-gold" %>
+  </div>
+
+  <div class="grid grid-cols-2 gap-4">
+    <div>
+      <%= f.label :category, "카테고리", class: "block text-sm font-bold mb-1" %>
+      <%= f.select :category, SkillPack.categories.keys.map { |c| [SkillPack.new(category: c).category_name, c] },
+        {}, class: "w-full border border-tv-cream rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-tv-gold" %>
+    </div>
+    <div>
+      <%= f.label :status, "상태", class: "block text-sm font-bold mb-1" %>
+      <%= f.select :status, [["초안", "draft"], ["공개", "published"]],
+        {}, class: "w-full border border-tv-cream rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-tv-gold" %>
+    </div>
+  </div>
+
+  <div>
+    <%= f.label :file, "다운로드 파일", class: "block text-sm font-bold mb-1" %>
+    <%= f.file_field :file, class: "w-full border border-tv-cream rounded-lg px-4 py-3" %>
+    <% if skill_pack.file.attached? %>
+      <p class="mt-1 text-sm text-tv-gray">현재 파일: <%= skill_pack.file.filename %> (<%= number_to_human_size(skill_pack.file.byte_size) %>)</p>
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.label :thumbnail, "썸네일 이미지", class: "block text-sm font-bold mb-1" %>
+    <%= f.file_field :thumbnail, accept: "image/*", class: "w-full border border-tv-cream rounded-lg px-4 py-3" %>
+    <% if skill_pack.thumbnail.attached? %>
+      <div class="mt-2">
+        <%= image_tag skill_pack.thumbnail, class: "w-32 h-20 object-cover rounded" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.submit skill_pack.persisted? ? "수정하기" : "생성하기",
+      class: "bg-tv-gold text-tv-black rounded-pill px-8 py-3 text-base font-bold hover:opacity-90 transition-opacity cursor-pointer" %>
+  </div>
+<% end %>

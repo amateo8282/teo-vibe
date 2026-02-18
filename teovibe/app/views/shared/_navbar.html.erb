@@ -11,12 +11,56 @@
       <%= link_to "튜토리얼", tutorials_path, class: "text-base font-medium text-tv-black hover:text-tv-orange transition-colors" %>
       <%= link_to "커뮤니티", free_boards_path, class: "text-base font-medium text-tv-black hover:text-tv-orange transition-colors" %>
       <%= link_to "Q&A", qnas_path, class: "text-base font-medium text-tv-black hover:text-tv-orange transition-colors" %>
+      <%= link_to "스킬팩", skill_packs_path, class: "text-base font-medium text-tv-black hover:text-tv-orange transition-colors" %>
     </div>
 
     <%# 우측 버튼 영역 %>
     <div class="hidden md:flex items-center gap-3">
       <% if Current.user %>
         <%= link_to "글쓰기", new_post_path, class: "bg-tv-gold text-tv-black rounded-pill px-5 py-2.5 text-base font-bold hover:opacity-90 transition-opacity" %>
+
+        <%# 알림 벨 %>
+        <div class="relative" data-controller="notification-dropdown">
+          <button data-action="click->notification-dropdown#toggle" class="relative p-2 hover:text-tv-orange transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+            </svg>
+            <% unread_count = Current.user.notifications.unread.count %>
+            <% if unread_count > 0 %>
+              <span data-notification-dropdown-target="badge" class="absolute -top-1 -right-1 bg-tv-orange text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                <%= unread_count > 9 ? "9+" : unread_count %>
+              </span>
+            <% end %>
+          </button>
+          <div data-notification-dropdown-target="menu" class="hidden absolute right-0 top-full mt-2 w-80 bg-white rounded-card shadow-lg z-50">
+            <div class="p-3 border-b border-tv-cream flex justify-between items-center">
+              <span class="font-bold text-sm">알림</span>
+              <%= link_to "전체보기", notifications_path, class: "text-xs text-tv-orange hover:underline" %>
+            </div>
+            <div class="max-h-64 overflow-y-auto">
+              <% Current.user.notifications.recent.limit(5).each do |notif| %>
+                <div class="px-3 py-2 text-sm border-b border-tv-cream/50 <%= notif.read? ? 'opacity-60' : 'bg-tv-gold/5' %>">
+                  <% if notif.actor %>
+                    <span class="font-bold"><%= notif.actor.nickname %></span>
+                  <% end %>
+                  <span class="text-tv-gray">
+                    <% if notif.new_comment? %> 님이 댓글을 남겼습니다.
+                    <% elsif notif.comment_reply? %> 님이 답글을 남겼습니다.
+                    <% elsif notif.post_liked? %> 님이 글을 좋아합니다.
+                    <% elsif notif.comment_liked? %> 님이 댓글을 좋아합니다.
+                    <% elsif notif.level_up? %> 레벨이 올랐습니다!
+                    <% end %>
+                  </span>
+                  <div class="text-xs text-tv-light-gray mt-0.5"><%= time_ago_in_words(notif.created_at) %> 전</div>
+                </div>
+              <% end %>
+              <% if Current.user.notifications.count == 0 %>
+                <div class="px-3 py-4 text-sm text-tv-gray text-center">알림이 없습니다.</div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
         <div class="relative" data-controller="dropdown">
           <button data-action="click->dropdown#toggle" class="flex items-center gap-2 text-base font-medium">
             <%= Current.user.nickname %>
@@ -52,6 +96,7 @@
       <%= link_to "튜토리얼", tutorials_path, class: "block text-lg font-medium" %>
       <%= link_to "커뮤니티", free_boards_path, class: "block text-lg font-medium" %>
       <%= link_to "Q&A", qnas_path, class: "block text-lg font-medium" %>
+      <%= link_to "스킬팩", skill_packs_path, class: "block text-lg font-medium" %>
       <hr class="border-tv-cream">
       <% if Current.user %>
         <%= link_to "내 프로필", me_path, class: "block text-lg font-medium" %>

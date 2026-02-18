@@ -1,0 +1,58 @@
+<div class="max-w-[800px]">
+  <div class="flex items-center justify-between mb-8">
+    <h1 class="text-2xl font-black"><%= @skill_pack.title %></h1>
+    <div class="flex gap-3">
+      <%= link_to "수정", edit_admin_skill_pack_path(@skill_pack), class: "bg-tv-cream text-tv-black rounded-pill px-5 py-2 text-sm font-bold hover:opacity-90" %>
+      <%= link_to "목록", admin_skill_packs_path, class: "text-tv-gray hover:text-tv-orange text-sm" %>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-card shadow-sm p-6 space-y-4">
+    <div class="grid grid-cols-2 gap-4 text-sm">
+      <div>
+        <span class="text-tv-gray">카테고리:</span>
+        <span class="font-bold ml-2"><%= @skill_pack.category_name %></span>
+      </div>
+      <div>
+        <span class="text-tv-gray">상태:</span>
+        <span class="font-bold ml-2 <%= @skill_pack.published? ? 'text-green-600' : 'text-gray-500' %>">
+          <%= @skill_pack.published? ? "공개" : "초안" %>
+        </span>
+      </div>
+      <div>
+        <span class="text-tv-gray">다운로드 수:</span>
+        <span class="font-bold ml-2"><%= @skill_pack.downloads_count %></span>
+      </div>
+      <div>
+        <span class="text-tv-gray">토큰:</span>
+        <code class="text-xs ml-2 bg-tv-cream px-2 py-1 rounded"><%= @skill_pack.download_token %></code>
+      </div>
+    </div>
+
+    <hr class="border-tv-cream">
+
+    <div>
+      <h3 class="text-sm font-bold text-tv-gray mb-2">설명</h3>
+      <p class="text-tv-dark"><%= simple_format(@skill_pack.description) %></p>
+    </div>
+
+    <% if @skill_pack.file.attached? %>
+      <div>
+        <h3 class="text-sm font-bold text-tv-gray mb-2">파일</h3>
+        <p><%= @skill_pack.file.filename %> (<%= number_to_human_size(@skill_pack.file.byte_size) %>)</p>
+      </div>
+    <% end %>
+
+    <% if @skill_pack.thumbnail.attached? %>
+      <div>
+        <h3 class="text-sm font-bold text-tv-gray mb-2">썸네일</h3>
+        <%= image_tag @skill_pack.thumbnail, class: "w-48 rounded" %>
+      </div>
+    <% end %>
+
+    <div>
+      <h3 class="text-sm font-bold text-tv-gray mb-2">다운로드 링크</h3>
+      <code class="text-xs bg-tv-cream px-3 py-2 rounded block"><%= token_download_url(@skill_pack.download_token) %></code>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="max-w-[800px]">
+  <div class="flex items-center justify-between mb-8">
+    <h1 class="text-2xl font-black">문의 상세</h1>
+    <%= link_to "< 목록", admin_inquiries_path, class: "text-tv-gray hover:text-tv-orange" %>
+  </div>
+
+  <%# 문의 정보 %>
+  <div class="bg-white rounded-card shadow-sm p-6 mb-6">
+    <div class="grid grid-cols-2 gap-4 text-sm mb-6">
+      <div><span class="text-tv-gray">이름:</span> <span class="font-bold ml-2"><%= @inquiry.name %></span></div>
+      <div><span class="text-tv-gray">이메일:</span> <span class="font-bold ml-2"><%= @inquiry.email %></span></div>
+      <div><span class="text-tv-gray">연락처:</span> <span class="ml-2"><%= @inquiry.phone.presence || "-" %></span></div>
+      <div><span class="text-tv-gray">회사:</span> <span class="ml-2"><%= @inquiry.company.presence || "-" %></span></div>
+      <div><span class="text-tv-gray">접수일:</span> <span class="ml-2"><%= @inquiry.created_at.strftime("%Y.%m.%d %H:%M") %></span></div>
+      <div>
+        <span class="text-tv-gray">상태:</span>
+        <% status_labels = { "pending" => "대기", "in_progress" => "처리중", "replied" => "답변완료", "closed" => "종료" } %>
+        <span class="font-bold ml-2"><%= status_labels[@inquiry.status] %></span>
+      </div>
+    </div>
+
+    <h3 class="font-bold mb-2"><%= @inquiry.subject %></h3>
+    <div class="bg-tv-cream rounded-lg p-4 text-tv-dark">
+      <%= simple_format(@inquiry.body) %>
+    </div>
+  </div>
+
+  <%# 기존 답변 %>
+  <% if @inquiry.admin_reply.present? %>
+    <div class="bg-blue-50 rounded-card shadow-sm p-6 mb-6">
+      <h3 class="font-bold text-blue-700 mb-2">관리자 답변 (<%= @inquiry.replied_at&.strftime("%Y.%m.%d %H:%M") %>)</h3>
+      <div class="text-tv-dark"><%= simple_format(@inquiry.admin_reply) %></div>
+    </div>
+  <% end %>
+
+  <%# 답변 폼 %>
+  <% unless @inquiry.closed? %>
+    <div class="bg-white rounded-card shadow-sm p-6 mb-6">
+      <h3 class="font-bold mb-4">답변 작성</h3>
+      <%= form_with(model: [:admin, @inquiry], url: reply_admin_inquiry_path(@inquiry), method: :patch, class: "space-y-4") do |f| %>
+        <%= f.text_area :admin_reply, rows: 6, value: @inquiry.admin_reply,
+          class: "w-full border border-tv-cream rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-tv-gold",
+          placeholder: "답변을 작성해주세요..." %>
+        <%= f.submit "답변 발송", class: "bg-tv-gold text-tv-black rounded-pill px-6 py-2.5 text-sm font-bold hover:opacity-90 transition-opacity cursor-pointer" %>
+      <% end %>
+    </div>
+
+    <%# 종료 버튼 %>
+    <div class="text-right">
+      <%= button_to "문의 종료", close_admin_inquiry_path(@inquiry), method: :patch,
+        data: { turbo_confirm: "정말 문의를 종료하시겠습니까?" },
+        class: "text-tv-burgundy hover:underline text-sm" %>
+    </div>
+  <% end %>
+</div>

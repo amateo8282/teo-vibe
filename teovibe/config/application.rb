@@ -16,6 +16,9 @@ module Teovibe
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
+    # SQLite FTS5 가상 테이블 지원을 위해 structure.sql 사용
+    config.active_record.schema_format = :sql
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

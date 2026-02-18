@@ -7,6 +7,12 @@ class ProfilesController < ApplicationController
     @user = Current.user
   end
 
+  def points
+    @user = Current.user
+    @point_transactions = @user.point_transactions.order(created_at: :desc)
+    @pagy, @point_transactions = pagy(:offset, @point_transactions, limit: 20)
+  end
+
   def update
     @user = Current.user
     if @user.update(profile_params)

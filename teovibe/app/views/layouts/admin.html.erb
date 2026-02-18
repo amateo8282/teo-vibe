@@ -28,6 +28,10 @@
             class: "block px-3 py-2 rounded-lg text-sm #{request.path.start_with?('/admin/users') ? 'bg-white/10 font-bold' : 'hover:bg-white/5'}" %>
           <%= link_to "댓글", admin_comments_path,
             class: "block px-3 py-2 rounded-lg text-sm #{request.path.start_with?('/admin/comments') ? 'bg-white/10 font-bold' : 'hover:bg-white/5'}" %>
+          <%= link_to "스킬팩", admin_skill_packs_path,
+            class: "block px-3 py-2 rounded-lg text-sm #{request.path.start_with?('/admin/skill_packs') ? 'bg-white/10 font-bold' : 'hover:bg-white/5'}" %>
+          <%= link_to "문의", admin_inquiries_path,
+            class: "block px-3 py-2 rounded-lg text-sm #{request.path.start_with?('/admin/inquiries') ? 'bg-white/10 font-bold' : 'hover:bg-white/5'}" %>
           <hr class="border-white/10 my-4">
           <%= link_to "사이트로 이동", root_path, class: "block px-3 py-2 rounded-lg text-sm hover:bg-white/5 text-tv-light-gray" %>
         </nav>

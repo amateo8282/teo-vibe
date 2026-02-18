@@ -1,0 +1,51 @@
+<div class="flex items-center justify-between mb-8">
+  <h1 class="text-2xl font-black">문의 관리</h1>
+  <div class="flex gap-2">
+    <%= link_to "전체", admin_inquiries_path,
+      class: "px-4 py-2 rounded-pill text-sm font-bold #{params[:status].blank? ? 'bg-tv-gold text-tv-black' : 'bg-tv-cream text-tv-gray hover:bg-tv-gold/20'}" %>
+    <% [["대기", "pending"], ["처리중", "in_progress"], ["답변완료", "replied"], ["종료", "closed"]].each do |label, status| %>
+      <%= link_to label, admin_inquiries_path(status: status),
+        class: "px-4 py-2 rounded-pill text-sm font-bold #{params[:status] == status ? 'bg-tv-gold text-tv-black' : 'bg-tv-cream text-tv-gray hover:bg-tv-gold/20'}" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="bg-white rounded-card shadow-sm overflow-hidden">
+  <table class="w-full text-sm">
+    <thead class="bg-tv-cream">
+      <tr>
+        <th class="text-left px-4 py-3 font-bold">이름</th>
+        <th class="text-left px-4 py-3 font-bold">제목</th>
+        <th class="text-left px-4 py-3 font-bold">상태</th>
+        <th class="text-left px-4 py-3 font-bold">접수일</th>
+        <th class="text-right px-4 py-3 font-bold">관리</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-tv-cream">
+      <% @inquiries.each do |inquiry| %>
+        <tr class="hover:bg-tv-cream/50">
+          <td class="px-4 py-3">
+            <div class="font-medium"><%= inquiry.name %></div>
+            <div class="text-xs text-tv-gray"><%= inquiry.email %></div>
+          </td>
+          <td class="px-4 py-3"><%= inquiry.subject %></td>
+          <td class="px-4 py-3">
+            <% status_colors = { "pending" => "bg-yellow-100 text-yellow-700", "in_progress" => "bg-blue-100 text-blue-700", "replied" => "bg-green-100 text-green-700", "closed" => "bg-gray-100 text-gray-600" } %>
+            <% status_labels = { "pending" => "대기", "in_progress" => "처리중", "replied" => "답변완료", "closed" => "종료" } %>
+            <span class="px-2 py-1 rounded text-xs font-bold <%= status_colors[inquiry.status] %>">
+              <%= status_labels[inquiry.status] %>
+            </span>
+          </td>
+          <td class="px-4 py-3 text-tv-gray"><%= inquiry.created_at.strftime("%Y.%m.%d %H:%M") %></td>
+          <td class="px-4 py-3 text-right">
+            <%= link_to "상세", admin_inquiry_path(inquiry), class: "text-tv-orange hover:underline" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="mt-6">
+  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+</div>

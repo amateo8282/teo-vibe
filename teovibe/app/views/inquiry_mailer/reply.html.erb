@@ -1,0 +1,12 @@
+<h2><%= @inquiry.name %>님, 문의에 대한 답변입니다.</h2>
+
+<p><strong>원래 문의:</strong> <%= @inquiry.subject %></p>
+
+<div style="margin-top: 16px; padding: 16px; background: #f0f7ff; border-radius: 8px; border-left: 4px solid #4A90D9;">
+  <%= simple_format(@inquiry.admin_reply) %>
+</div>
+
+<p style="margin-top: 16px; color: #666;">
+  추가 문의 사항이 있으시면 언제든지 연락해주세요.<br>
+  - TeoVibe 팀
+</p>

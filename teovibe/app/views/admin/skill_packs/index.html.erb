@@ -1,0 +1,45 @@
+<div class="flex items-center justify-between mb-8">
+  <h1 class="text-2xl font-black">스킬팩 관리</h1>
+  <%= link_to "새 스킬팩", new_admin_skill_pack_path, class: "bg-tv-gold text-tv-black rounded-pill px-5 py-2.5 text-sm font-bold hover:opacity-90 transition-opacity" %>
+</div>
+
+<div class="bg-white rounded-card shadow-sm overflow-hidden">
+  <table class="w-full text-sm">
+    <thead class="bg-tv-cream">
+      <tr>
+        <th class="text-left px-4 py-3 font-bold">제목</th>
+        <th class="text-left px-4 py-3 font-bold">카테고리</th>
+        <th class="text-left px-4 py-3 font-bold">상태</th>
+        <th class="text-center px-4 py-3 font-bold">다운로드</th>
+        <th class="text-left px-4 py-3 font-bold">생성일</th>
+        <th class="text-right px-4 py-3 font-bold">관리</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-tv-cream">
+      <% @skill_packs.each do |sp| %>
+        <tr class="hover:bg-tv-cream/50">
+          <td class="px-4 py-3 font-medium"><%= sp.title %></td>
+          <td class="px-4 py-3"><%= sp.category_name %></td>
+          <td class="px-4 py-3">
+            <span class="px-2 py-1 rounded text-xs font-bold <%= sp.published? ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600' %>">
+              <%= sp.published? ? "공개" : "초안" %>
+            </span>
+          </td>
+          <td class="px-4 py-3 text-center"><%= sp.downloads_count %></td>
+          <td class="px-4 py-3 text-tv-gray"><%= sp.created_at.strftime("%Y.%m.%d") %></td>
+          <td class="px-4 py-3 text-right space-x-2">
+            <%= link_to "보기", admin_skill_pack_path(sp), class: "text-tv-orange hover:underline" %>
+            <%= link_to "수정", edit_admin_skill_pack_path(sp), class: "text-tv-orange hover:underline" %>
+            <%= button_to "삭제", admin_skill_pack_path(sp), method: :delete,
+              data: { turbo_confirm: "정말 삭제하시겠습니까?" },
+              class: "text-tv-burgundy hover:underline" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="mt-6">
+  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+</div>

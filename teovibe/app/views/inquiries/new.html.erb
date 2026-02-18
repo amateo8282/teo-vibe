@@ -1,0 +1,57 @@
+<div class="max-w-[600px] mx-auto px-5 py-16">
+  <h1 class="text-display font-black text-center mb-4">컨설팅 문의</h1>
+  <p class="text-xl text-tv-gray text-center mb-12">
+    바이브코딩으로 사업을 시작하고 싶으신가요?<br>
+    아래 폼을 통해 문의해주세요.
+  </p>
+
+  <div class="bg-white rounded-card-lg p-8">
+    <%= form_with(model: @inquiry, class: "space-y-5") do |f| %>
+      <% if @inquiry.errors.any? %>
+        <div class="bg-red-50 border border-red-200 rounded-card p-4">
+          <ul class="list-disc pl-5 text-sm text-red-600">
+            <% @inquiry.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <%= f.label :name, "이름 *", class: "block text-sm font-bold mb-1" %>
+          <%= f.text_field :name, class: "w-full border border-tv-cream rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-tv-gold", placeholder: "홍길동" %>
+        </div>
+        <div>
+          <%= f.label :email, "이메일 *", class: "block text-sm font-bold mb-1" %>
+          <%= f.email_field :email, class: "w-full border border-tv-cream rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-tv-gold", placeholder: "you@example.com" %>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <%= f.label :phone, "연락처", class: "block text-sm font-bold mb-1" %>
+          <%= f.tel_field :phone, class: "w-full border border-tv-cream rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-tv-gold", placeholder: "010-0000-0000" %>
+        </div>
+        <div>
+          <%= f.label :company, "회사/소속", class: "block text-sm font-bold mb-1" %>
+          <%= f.text_field :company, class: "w-full border border-tv-cream rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-tv-gold" %>
+        </div>
+      </div>
+
+      <div>
+        <%= f.label :subject, "제목 *", class: "block text-sm font-bold mb-1" %>
+        <%= f.text_field :subject, class: "w-full border border-tv-cream rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-tv-gold", placeholder: "문의 제목" %>
+      </div>
+
+      <div>
+        <%= f.label :body, "문의 내용 *", class: "block text-sm font-bold mb-1" %>
+        <%= f.text_area :body, rows: 6, class: "w-full border border-tv-cream rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-tv-gold", placeholder: "문의 내용을 작성해주세요" %>
+      </div>
+
+      <div class="text-center pt-2">
+        <%= f.submit "문의 보내기", class: "bg-tv-gold text-tv-black rounded-pill px-8 py-4 text-lg font-bold hover:opacity-90 transition-opacity cursor-pointer" %>
+      </div>
+    <% end %>
+  </div>
+</div>

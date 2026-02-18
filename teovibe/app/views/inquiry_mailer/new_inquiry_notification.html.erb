@@ -1,0 +1,32 @@
+<h2>새로운 문의가 접수되었습니다</h2>
+
+<table style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eee;">이름</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;"><%= @inquiry.name %></td>
+  </tr>
+  <tr>
+    <td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eee;">이메일</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;"><%= @inquiry.email %></td>
+  </tr>
+  <% if @inquiry.phone.present? %>
+  <tr>
+    <td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eee;">연락처</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;"><%= @inquiry.phone %></td>
+  </tr>
+  <% end %>
+  <% if @inquiry.company.present? %>
+  <tr>
+    <td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eee;">회사</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;"><%= @inquiry.company %></td>
+  </tr>
+  <% end %>
+  <tr>
+    <td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eee;">제목</td>
+    <td style="padding: 8px; border-bottom: 1px solid #eee;"><%= @inquiry.subject %></td>
+  </tr>
+</table>
+
+<div style="margin-top: 16px; padding: 16px; background: #f5f5f5; border-radius: 8px;">
+  <%= simple_format(@inquiry.body) %>
+</div>

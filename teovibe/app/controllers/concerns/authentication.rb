@@ -48,6 +48,8 @@ module Authentication
         Current.session = session
         cookies.signed.permanent[:session_id] = { value: session.id, httponly: true, same_site: :lax }
       end
+      # 일일 로그인 포인트
+      PointService.award_daily_login(user)
     end
 
     def terminate_session
