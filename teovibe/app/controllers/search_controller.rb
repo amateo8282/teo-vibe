@@ -12,9 +12,13 @@ class SearchController < ApplicationController
       if post_ids.any?
         @posts = Post.published.where(id: post_ids).includes(:user).order(created_at: :desc)
       else
-        # FTS5 매치 없으면 LIKE 폴백
+        # FTS5 매치 없으면 LIKE 폴백 (ActionText 본문 포함)
         @posts = Post.published
-          .where("title LIKE ? OR slug LIKE ?", "%#{@query}%", "%#{@query}%")
+          .left_joins(:rich_text_body)
+          .where(
+            "posts.title LIKE :q OR posts.slug LIKE :q OR action_text_rich_texts.body LIKE :q",
+            q: "%#{@query}%"
+          )
           .includes(:user)
           .order(created_at: :desc)
       end

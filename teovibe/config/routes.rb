@@ -17,7 +17,11 @@ Rails.application.routes.draw do
   resources :blogs, controller: "blogs"
   resources :tutorials, controller: "tutorials"
   resources :free_boards, controller: "free_boards"
-  resources :qnas, controller: "qnas"
+  resources :qnas, controller: "qnas" do
+    resources :comments, only: [] do
+      member { patch :accept }
+    end
+  end
   resources :portfolios, controller: "portfolios"
   resources :notices, controller: "notices", only: %i[index show]
 
@@ -26,7 +30,7 @@ Rails.application.routes.draw do
 
   # 댓글
   resources :comments, only: %i[create destroy] do
-    resource :like, only: %i[create destroy], module: :comments
+    resource :like, only: %i[create destroy]
   end
 
   # 좋아요
@@ -78,7 +82,7 @@ Rails.application.routes.draw do
       resources :section_cards, except: %i[index]
     end
     resources :skill_packs
-    resources :posts, only: %i[index show edit update destroy]
+    resources :posts, only: %i[index show new create edit update destroy]
     resources :users, only: %i[index show edit update]
     resources :comments, only: %i[index destroy]
     resources :inquiries, only: [:index, :show, :update] do

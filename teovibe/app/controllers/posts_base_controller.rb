@@ -13,6 +13,8 @@ class PostsBaseController < ApplicationController
   end
 
   def show
+    # 본인 글이 아닌 경우에만 조회수 증가
+    @post.increment!(:views_count) unless Current.user == @post.user
     @comments = @post.comments.includes(:user).where(parent_id: nil).order(created_at: :asc)
     render "posts/show"
   end

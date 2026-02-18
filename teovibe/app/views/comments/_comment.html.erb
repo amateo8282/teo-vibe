@@ -22,6 +22,11 @@
     <div id="<%= dom_id(comment, :like) %>">
       <%= render "likes/button", likeable: comment %>
     </div>
+    <% if comment.post.qna? && comment.parent_id.nil? && comment.post.user == Current.user && !comment.accepted? %>
+      <%= button_to "채택", accept_qna_comment_path(comment.post, comment), method: :patch,
+        data: { turbo_confirm: "이 답변을 채택하시겠습니까?" },
+        class: "text-xs text-tv-orange hover:underline font-bold" %>
+    <% end %>
   </div>
 
   <%# 대댓글 %>

@@ -10,6 +10,20 @@ module Admin
     def show
     end
 
+    def new
+      @post = Post.new
+    end
+
+    def create
+      @post = Current.user.posts.build(post_params)
+      @post.status = :published if @post.status.blank?
+      if @post.save
+        redirect_to admin_posts_path, notice: "게시글이 작성되었습니다."
+      else
+        render :new, status: :unprocessable_entity
+      end
+    end
+
     def edit
     end
 
